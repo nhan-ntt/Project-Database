@@ -8,5 +8,5 @@
     DB_USER=root
     DB_PASSWORD=your_password
     DB_HOST=localhost
-    DB_NAME=database_name
+    DB_NAME=projectdb_quanlidaotao
      ```

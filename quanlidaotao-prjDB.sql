@@ -1,7 +1,6 @@
--- create database projectdb_quanlidaotao;
--- use projectdb_quanlidaotao;
+create database projectdb_quanlidaotao;
+use projectdb_quanlidaotao;
 -- drop database projectdb_quanlidaotao;
-
 
 CREATE TABLE `semester` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
