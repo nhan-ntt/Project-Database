@@ -1,6 +1,18 @@
-from database import (Semester, TakeClass, Student, CourseClass, Major, SubjectClass, Subject,
-                      engine)
+from sqlalchemy.ext.automap import automap_base
+
+from app.config.database import ( engine)
 from sqlalchemy.orm import sessionmaker
+
+Base = automap_base()
+Base.prepare(autoload_with=engine)
+
+Semester = Base.classes.semester
+TakeClass = Base.classes.takeclass
+Student = Base.classes.student
+CourseClass = Base.classes.courseclass
+Major = Base.classes.major
+SubjectClass = Base.classes.subjectclass
+Subject = Base.classes.subject
 
 Session = sessionmaker(bind=engine)
 session = Session()
