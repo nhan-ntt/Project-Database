@@ -3,7 +3,6 @@ import urllib.parse
 
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, MetaData
-from sqlalchemy.ext.automap import automap_base
 
 # Load environment variables from .env file
 load_dotenv()
@@ -25,16 +24,7 @@ SQLALCHEMY_DATABASE_URL = "mysql+mysqlconnector://{}:{}@{}/{}".format(db_user, d
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 meta = MetaData()
-Base = automap_base()
-Base.prepare(autoload_with=engine)
 
-Semester = Base.classes.semester
-TakeClass = Base.classes.takeclass
-Student = Base.classes.student
-CourseClass = Base.classes.courseclass
-Major = Base.classes.major
-SubjectClass = Base.classes.subjectclass
-Subject = Base.classes.subject
 
 # Check the connection
 try:

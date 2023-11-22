@@ -2,6 +2,7 @@
 1. import quanlidaotao-prjDB.sql to database
     ```
    source pathtofile/quanlidaotao-prjDB.sql;
+   source pathtofile/data.sql;
     ```
 3. create .env file
     ```
