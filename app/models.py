@@ -1,6 +1,5 @@
 from sqlalchemy.ext.automap import automap_base
-
-from app.config.database import ( engine)
+from database import ( engine)
 from sqlalchemy.orm import sessionmaker
 
 Base = automap_base()
@@ -21,11 +20,3 @@ session = Session()
 #
 # session.add(stu)
 # session.commit()
-
-result = session.query(Major).all()
-
-for row in result:
-    print(row.name, row.code)
-
-
-

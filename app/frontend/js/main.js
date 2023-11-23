@@ -1,32 +1,6 @@
 (function ($) {
   "use strict";
 
-  $("#demoFetchData").click(function () {
-    $.ajax({
-      url: "https://api.vietqr.io/v2/banks?utm_source=j2team&utm_medium=url_shortener&utm_campaign=bank-list-api",
-      method: "GET",
-      success: function (response) {
-        response.data.forEach(function (item) {
-          var imgTag = `<img class="w-25" src='` + item.logo + "' alt='" + item.name + "'>";
-          console.log(item);
-          $("#dataResult").append(
-            "<div>" +
-              imgTag +
-              "<div>" +
-              item.id +
-              ": " +
-              item.name +
-              "</div>" +
-              "</div>"
-          );
-        });
-      },
-      error: function (error) {
-        console.error("Error: ", error);
-      },
-    });
-  });
-
   $("form").submit(function (event) {
     event.preventDefault();
     var studentId = $("#student-id").val();
