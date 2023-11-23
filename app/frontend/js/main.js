@@ -1,6 +1,33 @@
 (function ($) {
   "use strict";
 
+  $("#searchWithStudentId").click(function () {
+    var studentId = $("#studentId").val();
+    $.ajax({
+      url: "http://localhost:8000/qldt",
+      method: "GET",
+      data: {
+        param: studentId,
+      },
+      success: function (response) {
+        response.forEach(function (item) {
+          $("#result").append(
+            "<tr><td>" +
+              item.subject_code +
+              "</td><td>" +
+              item.subject_name +
+              "</td><td>" +
+              item.credit +
+              "</td><td>" +
+              "Nguyễn Thị Thanh Nhan</td></tr>"
+          );
+        });
+      },
+      error: function (error) {
+        console.error("Error: ", error);
+      },
+    });
+  });
   $("form").submit(function (event) {
     event.preventDefault();
     var studentId = $("#student-id").val();

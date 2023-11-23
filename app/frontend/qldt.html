@@ -73,11 +73,11 @@
 
       <div class="col-md-6">
         <label for="ma-sv" class="form-label">Mã số sinh viên:</label>
-        <input type="text" id="ma-sv" name="ma-sv" class="form-control">
+        <input type="text" id="studentId" name="ma-sv" class="form-control">
       </div>
 
       <div class="col-12">
-        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        <button id="searchWithStudentId" type="submit" class="btn btn-primary">Tìm kiếm</button>
       </div>
     </form>
 
@@ -91,8 +91,8 @@
             <th scope="col">Giảng viên</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
+        <tbody id="result">
+          <!-- <tr>
             <td>CSC101</td>
             <td>Lập trình căn bản</td>
             <td>3</td>
@@ -109,7 +109,7 @@
             <td>Cấu trúc dữ liệu và giải thuật</td>
             <td>3</td>
             <td>Phạm Văn C</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
