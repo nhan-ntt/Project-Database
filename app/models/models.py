@@ -1,6 +1,6 @@
 from sqlalchemy.ext.automap import automap_base
 
-from app.config.database import ( engine)
+from app.models.database import (engine)
 from sqlalchemy.orm import sessionmaker
 
 Base = automap_base()
