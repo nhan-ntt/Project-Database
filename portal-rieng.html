@@ -82,7 +82,8 @@
               <a class="dropdown-item" href="#">Courses 3</a>
             </div>
           </div> -->
-          <input id="student-id" type="text" class="form-control border-light" style="padding: 30px 25px" placeholder="Nhập MSSV" />
+          <input id="student-id" type="text" class="form-control border-light" style="padding: 30px 25px"
+            placeholder="Nhập MSSV" />
           <div class="input-group-append">
             <button type="submit" class="btn btn-secondary px-4 px-lg-5">Search</button>
           </div>
@@ -95,12 +96,61 @@
   <!-- About Start -->
   <div class="container-fluid py-5">
     <div class="container py-5">
-        <div class="row">
-            
-        </div>
+      <div class="row">
+
+      </div>
     </div>
-</div>
-<!-- About End -->
+  </div>
+  <!-- About End -->
+
+  <div class="container pb-5">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="card border-0">
+          <div class="row g-0">
+            <div class="col-md-4 bg-primary text-center text-white rounded-start">
+              <img src="img\courses-1.jpg" alt="Avatar" class="img-fluid my-md-3 w-100" style="" />
+              <!-- <h4>
+                <?= $user_info['fullname']?>
+              </h4>
+              <p>
+                <?= ucfirst($user_info['user_type'])?>
+              </p> -->
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Thông tin</h6>
+                <hr class="mt-0 mb-3">
+                <div class="row">
+                  <div class="col-4 mb-2">
+                    <h6 class="mt-2">SĐT:</h6>
+                    <h6 class="mt-2">Email:</h6>
+                    <h6 class="mt-2">Địa chỉ:</h6>
+                    <h6 class="mt-2">Trạng thái:</h6>
+                  </div>
+                  <div class="col-8 mb-2">
+                    <h6 class="mt-2">
+                      <?= $user_info['phone_number']?>
+                    </h6>
+                    <h6 class="mt-2">
+                      <?= $user_info['email']?>
+                    </h6>
+                    <h6 class="mt-2">
+                      <?= $user_info['address']?>
+                    </h6>
+                    <h6 class="mt-2">
+                      <?= ucfirst($user_info['status'])?>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
   <!-- Back to Top -->
