@@ -31,8 +31,7 @@ def get_qldt(
             models.Student.name == student_name if student_name is not None else models.Student.name.isnot(None),
             models.Student.date_of_birth == date_of_birth if date_of_birth is not None else models.Student.date_of_birth.isnot(None),
            # models.Student.course_class_code == course_class_code if course_class_code is not None else models.Student.course_class_code.isnot(None),
-            func.concat("K",models.CourseClass.gen, "-", models.Major.code).label('course_class')== course_class_code if course_class_code is not None 
-            else models.Major.isnot(None),
+            #func.concat("K",models.CourseClass.gen, "-", models.Major.code).label('course_class')== course_class_code if course_class_code is not None else models.Major.isnot(None),
 
             models.SubjectClass.id == subject_class_id if subject_class_id is not None else models.SubjectClass.id.isnot(None),
             models.Subject.subject_code == subject_code if subject_code is not None else models.Subject.subject_code.isnot(None),
@@ -51,4 +50,3 @@ def get_qldt(
     )
     result = query.all()
     return result
-
