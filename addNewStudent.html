@@ -60,11 +60,121 @@
   <div class="container-fluid">
     <div class="row mx-0 justify-content-center px-5">
       <div class="col-lg-8">
-          <div class="section-title text-center position-relative my-5">
-              <h1 class="display-4">Thêm mới sinh viên</h1>
-          </div>
+        <div class="section-title text-center position-relative my-5">
+          <h1 class="display-4">Thêm mới sinh viên</h1>
+        </div>
       </div>
-  </div>
+    </div>
+    <div class="container-fluid p-0">
+      <form action="#" method="POST">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="">Họ và tên</label>
+              <input type="text" class="form-control" name="fullname" required>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">Ngày sinh</label>
+              <input type="date" class="form-control" name="dob" required>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">SĐT</label>
+              <input type="text" class="form-control" name="phone_number" required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="">Email</label>
+              <input type="text" class="form-control" name="email" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="">Địa chỉ</label>
+              <textarea name="address" rows="4" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">Mã SV, Giảng viên</label>
+              <input type="text" class="form-control" name="user_code" required>
+              <label for="">Loại User</label>
+              <select name="user_type" class="form-control" required>
+                <option value="">-- Chọn --</option>
+                <option value="student">Sinh viên</option>
+                <option value="lecturer">Giảng viên</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">Viện đào tạo</label>
+              <select name="training_institute" class="form-control" required>
+                <option value="">-- Chọn --</option>
+                <?php
+                            foreach ($training_institute as $item) {
+                        ?>
+                <option value="<?= $item['training_institute_code']?>">
+                  <?= $item['training_institute_name']?>
+                </option>
+                <?php }?>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">Ngành đào tạo</label>
+              <select name="training_majors" class="form-control">
+                <option value="">-- Chọn --</option>
+                <?php
+                            foreach ($training_majors as $item) {
+                        ?>
+                <option value="<?= $item['training_majors_code']?>">
+                  <?= $item['training_majors_name']?>
+                </option>
+                <?php }?>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">Hệ đào tạo</label>
+              <select name="training_system" class="form-control">
+                <option value="">-- Chọn --</option>
+                <?php
+                            foreach ($training_system as $item) {
+                        ?>
+                <option value="<?= $item['training_system_code']?>">
+                  <?= $item['training_system_name']?>
+                </option>
+                <?php }?>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="text-danger">
+              <?= $err_msg?>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <button type="submit" class="btn btn-primary" name="save">Lưu</button>
+            <a href="?r=trang-chu" class="btn btn-secondary">Trở về</a>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 
 
