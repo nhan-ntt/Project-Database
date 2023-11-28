@@ -1,1 +1,0 @@
-print("hay cuu layjhkhkjhkjhk thanh nhan")
