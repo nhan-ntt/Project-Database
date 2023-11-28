@@ -28,6 +28,6 @@ def qldt(student_id: int | None = None ,
     return crud.get_qldt(db, student_id, student_name,
                          date_of_birth, course_class_code, subject_class_id,
                          subject_code, subject_name, credit, limit_number, semester_id)
-# @app.get("/qldt2")
-# def qldt2(student_id: int | None = None , semester_id: int | None = None):
-#     return crud.get_qldt2(db, student_id, semester_id)
+# @app.get("/portalrieng")
+# def qldt2(student_id: int | None = None):
+#     return crud.get_in4(db, student_id)
