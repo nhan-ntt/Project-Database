@@ -96,28 +96,20 @@
     <div class="container-fluid bg-image pt-5">
       <div class="container pb-5">
         <div class="row justify-content-center align-items-center">
-          <div class="col-lg-6 mb-4 mb-lg-0">
-            <div class="card border-0">
-              <div class="row g-0">
-                <div class="col-md-4 text-center text-white rounded-start">
-                  <img src="img\courses-1.jpg" alt="Avatar" class="img-fluid my-md-3 mx-md-3 w-100" />
-                  <!-- <h4>
-                  <?= $user_info['fullname']?>
-                </h4>
-                <p>
-                  <?= ucfirst($user_info['user_type'])?>
-                </p> -->
-                </div>
-                <div class="col-md-8">
+          <div class="col-lg-8 ">
+            <div class="card border-2">
+              <div class="row">
+                <div class="col-12">
                   <div class="card-body p-4">
                     <h6>Thông tin</h6>
                     <hr class="mt-0 mb-3">
                     <div class="row">
                       <div class="col-4 mb-2">
-                        <h6 class="mt-2">SĐT:</h6>
-                        <h6 class="mt-2">Email:</h6>
+                        <h6 class="mt-2">MSSV: </h6>
+                        <h6 class="mt-2">Họ tên:</h6>
                         <h6 class="mt-2">Địa chỉ:</h6>
                         <h6 class="mt-2">Trạng thái:</h6>
+                        <h6 class="mt-2">GPA:</h6>
                       </div>
                       <div class="col-8 mb-2">
                         <h6 class="mt-2">
@@ -154,7 +146,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-10 offset-md-1 mb-3 mt-5">
+        <div class="col-md-10 offset-md-1 mb-3 mt-3">
           <form class="text-center" id="sinhvienlmh-form" action="/qldt/" method="post">
             <b>Học kỳ:</b>
             <select class="form-select target" name="" id="SinhvienLmh_term_id">
