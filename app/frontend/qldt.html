@@ -41,7 +41,6 @@
       <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
         <div class="navbar-nav mx-auto py-0">
           <a href="index.html" class="nav-item nav-link">Home</a>
-          <a href="about.html" class="nav-item nav-link">About</a>
           <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Portal</a>
             <div class="dropdown-menu m-0">
@@ -58,63 +57,313 @@
   </div>
   <!-- Navbar End -->
 
-  <main>
-    <h1>Tra cứu thông tin lớp môn học</h1>
-
-    <form class="row g-3">
-      <div class="col-md-6">
-        <label for="hoc-ky" class="form-label">Học kỳ:</label>
-        <select id="hoc-ky" name="hoc-ky" class="form-select">
-          <option value="1">Học kỳ 1</option>
-          <option value="2">Học kỳ 2</option>
-          <option value="3">Học kỳ hè</option>
-        </select>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 mb-3 mt-5">
+        <form class="text-center" id="sinhvienlmh-form" action="/qldt/" method="post">
+          <b>Học kỳ:</b>
+          <select class="form-select target" name="SinhvienLmh[term_id]" id="SinhvienLmh_term_id">
+            <option value="">Lựa chọn học kỳ</option>
+            <option value="10">Học kỳ 1 năm học 2023-2024</option>
+            <option value="9">Học kỳ 2 năm học 2022-2023</option>
+            <option value="8">Học kỳ 2 năm học 2022-2023</option>
+            <option value="7">Học kỳ 1 năm học 2022-2023</option>
+            <option value="6">Học kỳ 2 năm học 2021-2022</option>
+            <option value="5">Học kỳ 2 năm học 2021-2022</option>
+            <option value="4">Học kỳ 1 năm học 2021-2022</option>
+            <option value="3">Học kỳ 2 năm học 2020-2021</option>
+            <option value="2">Học kỳ 2 năm học 2020-2021</option>
+            <option value="1">Học kỳ 1 năm học 2020-2021</option>
+          </select>
+        </form>
       </div>
 
-      <div class="col-md-6">
-        <label for="ma-sv" class="form-label">Mã số sinh viên:</label>
-        <input type="text" id="ma-sv" name="ma-sv" class="form-control">
-      </div>
-
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-      </div>
-    </form>
-
-    <div id="ket-qua">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Mã môn học</th>
-            <th scope="col">Tên môn học</th>
-            <th scope="col">Số tín chỉ</th>
-            <th scope="col">Giảng viên</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CSC101</td>
-            <td>Lập trình căn bản</td>
-            <td>3</td>
-            <td>Nguyễn Văn A</td>
-          </tr>
-          <tr>
-            <td>CSC102</td>
-            <td>Lập trình hướng đối tượng</td>
-            <td>3</td>
-            <td>Trần Thị B</td>
-          </tr>
-          <tr>
-            <td>CSC103</td>
-            <td>Cấu trúc dữ liệu và giải thuật</td>
-            <td>3</td>
-            <td>Phạm Văn C</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-  </main>
+  </div>
 
+  <div id="results" class="table-responsive">
+    <table class="table table-sm table-hover table-responsive table-bordered">
+      <thead>
+        <tr>
+          <th>
+            <select class="form-select"
+              onchange="$.fn.yiiGridView.update('sinhvien-lmh-grid',{ data:{pageSize: $(this).val() }})"
+              name="pageSize"
+              id="pageSize">
+              <option value="10">10</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+              <option value="2000">2000</option>
+              <option value="5000">5000</option>
+            </select>
+          </th>
+          <th id="" scope="col" class="">
+            <a href="">Mã SV</a>
+          </th>
+          <th id="" scope="col" class="">
+            <a href="">Họ và tên</a>
+          </th>
+          <th id="" scope="col" class="">
+            <a href="">Ngày sinh</a>
+          </th>
+          <th id="" scope="col" class="">
+            <a href="">Lớp khoá học</a>
+          </th>
+          <th id="" scope="col" class="">
+            <a href="">Mã LMH</a>
+          </th>
+          <th id="" scope="col" class="">
+            <a href="">Tên môn học</a>
+          </th>
+          <th id="" scope="col" class="">
+            <a href="">Số tín chỉ</a>
+          </th>
+        </tr>
+        <tr class="">
+          <td></td>
+          <td><input name="" type="text" class="form-control form-control-sm"></td>
+          <td><input name="" type="text" class="form-control form-control-sm"></td>
+          <td><input name="" type="text" class="form-control form-control-sm"></td>
+          <td><input name="" type="text" class="form-control form-control-sm"></td>
+          <td><input name="" type="text" class="form-control form-control-sm"></td>
+          <td><input name="" maxlength="10" class="form-control form-control-sm"></td>
+          <td><input name="" type="text" class="form-control form-control-sm"></td>
+          <td style="display:none"><select name="">
+              <option value=""></option>
+              <option value="10">10</option>
+              <option value="9">9</option>
+              <option value="8">8</option>
+              <option value="7">7</option>
+              <option value="6">6</option>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="11" class="empty text-center text-">
+            No results found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<!-- 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <form class="text-center" id="sinhvienlmh-form" action="/qldt/" method="post">
+          <b>Học kỳ:</b>
+          <select class="form-select target" name="SinhvienLmh[term_id]" id="SinhvienLmh_term_id">
+            <option value="">Lựa chọn học kỳ</option>
+            <option value="038">Học kỳ 1 năm học 2023-2024</option>
+            <option value="037">Học kỳ 2 năm học 2022-2023</option>
+            <option value="036">Học kỳ 2 năm học 2022-2023</option>
+            <option value="035">Học kỳ 1 năm học 2022-2023</option>
+            <option value="034">Học kỳ 2 năm học 2021-2022</option>
+            <option value="033">Học kỳ 2 năm học 2021-2022</option>
+            <option value="032">Học kỳ 1 năm học 2021-2022</option>
+            <option value="031">Học kỳ 2 năm học 2020-2021</option>
+            <option value="030">Học kỳ 2 năm học 2020-2021</option>
+            <option value="029">Học kỳ 1 năm học 2020-2021</option>
+          </select>
+        </form>
+        <div id="sinhvien-lmh-grid" class="grid-view">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  <select class="form-select"
+                    onchange="$.fn.yiiGridView.update('sinhvien-lmh-grid',{ data:{pageSize: $(this).val() }})"
+                    name="pageSize" id="pageSize">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                    <option value="2000">2000</option>
+                    <option value="5000">5000</option>
+                  </select>
+                </th>
+                <th><a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=masvTitle">Mã SV</a></th>
+                <th><a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=hotenTitle">Họ và tên</a>
+                </th>
+                <th>Ngày sinh</th>
+                <th><a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=lopkhoahocTitle">Lớp khóa
+                    học</a></th>
+                <th><a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=tenlopmonhocTitle">Mã
+                    LMH</a></th>
+                <th><a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=tenmonhocTitle">Tên môn
+                    học</a></th>
+                <th><a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=nhom">Nhóm</a></th>
+                <th><a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=sotinchiTitle">Số TC</a>
+                </th>
+                <th><a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=ghichu">Ghi chú</a></th>
+                <th style="display:none">Term</th>
+              </tr>
+              <tr class="filters">
+                <td>&nbsp;</td>
+                <td><input class="form-control" name="SinhvienLmh[masvTitle]" type="text"></td>
+                <td><input class="form-control" name="SinhvienLmh[hotenTitle]" type="text"></td>
+                <td><input class="form-control" name="SinhvienLmh[ngaysinhTitle]" type="text"></td>
+                <td><input class="form-control" name="SinhvienLmh[lopkhoahocTitle]" type="text"></td>
+                <td><input class="form-control" name="SinhvienLmh[tenlopmonhocTitle]" type="text"></td>
+                <td><input class="form-control" name="SinhvienLmh[tenmonhocTitle]" type="text"></td>
+                <td><input class="form-control" name="SinhvienLmh[nhom]" type="text" maxlength="10"></td>
+                <td><input class="form-control" name="SinhvienLmh[sotinchiTitle]" type="text"></td>
+                <td><input class="form-control" name="SinhvienLmh[ghichu]" type="text" maxlength="200"></td>
+                <td style="display:none">
+                  <select class="form-select" name="SinhvienLmh[term_id]">
+                    <option value=""></option>
+                    <option value="038">038</option>
+                    <option value="037">037</option>
+                    <option value="036">036</option>
+                    <option value="035">035</option>
+                    <option value="034">034</option>
+                    <option value="033">033</option>
+                    <option value="032">032</option>
+                    <option value="031">031</option>
+                    <option value="030">030</option>
+                    <option value="029">029</option>
+                  </select>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="11" class="empty">
+                  <span class="empty">No results found.</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="keys" style="display:none" title="/qldt/"></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+  <!-- Copy 2 -->
+
+  <!-- <div id="content" style="height: 408px;">
+
+    <div class="span-5 last">
+      <div id="sidebar">
+        <div class="portlet" id="yw2">
+          <div class="portlet-decoration">
+            <div class="portlet-title">Operations</div>
+          </div>
+          <div class="portlet-content">
+            <ul class="operations" id="yw3">
+              <li><a href="/qldt/index.php?r=sinhvienLmh/index">List SinhvienLmh</a></li>
+              <li><a href="/qldt/index.php?r=sinhvienLmh/create">Create SinhvienLmh</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="span-19">
+      <div id="content">
+        <form style="text-align:center;" id="sinhvienlmh-form" action="/qldt/" method="post"><b>Học kỳ:</b><select
+            class="target" name="SinhvienLmh[term_id]" id="SinhvienLmh_term_id">
+            <option value="">Lựa chọn học kỳ</option>
+            <option value="038">Học kỳ 1 năm học 2023-2024</option>
+            <option value="037">Học kỳ 2 năm học 2022-2023</option>
+            <option value="036">Học kỳ 2 năm học 2022-2023</option>
+            <option value="035">Học kỳ 1 năm học 2022-2023</option>
+            <option value="034">Học kỳ 2 năm học 2021-2022</option>
+            <option value="033">Học kỳ 2 năm học 2021-2022</option>
+            <option value="032">Học kỳ 1 năm học 2021-2022</option>
+            <option value="031">Học kỳ 2 năm học 2020-2021</option>
+            <option value="030">Học kỳ 2 năm học 2020-2021</option>
+            <option value="029">Học kỳ 1 năm học 2020-2021</option>
+          </select></form>
+        <div id="sinhvien-lmh-grid" class="grid-view">
+          <table class="items">
+            <thead>
+              <tr>
+                <th id="sinhvien-lmh-grid_c0"><select
+                    onchange="$.fn.yiiGridView.update('sinhvien-lmh-grid',{ data:{pageSize: $(this).val() }})"
+                    name="pageSize" id="pageSize">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                    <option value="2000">2000</option>
+                    <option value="5000">5000</option>
+                  </select></th>
+                <th id="sinhvien-lmh-grid_c1">
+                  <a class="sort-link" href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=masvTitle">Mã SV
+                  </a>
+                </th>
+                <th id="sinhvien-lmh-grid_c2"><a class="sort-link"
+                    href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=hotenTitle">Họ và tên</a></th>
+                <th id="sinhvien-lmh-grid_c3">Ngày sinh</th>
+                <th id="sinhvien-lmh-grid_c4"><a class="sort-link"
+                    href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=lopkhoahocTitle">Lớp khóa học</a></th>
+                <th id="sinhvien-lmh-grid_c5"><a class="sort-link"
+                    href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=tenlopmonhocTitle">Mã LMH</a></th>
+                <th id="sinhvien-lmh-grid_c6"><a class="sort-link"
+                    href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=tenmonhocTitle">Tên môn học</a></th>
+                <th id="sinhvien-lmh-grid_c7"><a class="sort-link"
+                    href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=nhom">Nhóm</a></th>
+                <th id="sinhvien-lmh-grid_c8"><a class="sort-link"
+                    href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=sotinchiTitle">Số TC</a></th>
+                <th id="sinhvien-lmh-grid_c9"><a class="sort-link"
+                    href="/qldt/index.php?r=sinhvienLmh/admin&amp;sort=ghichu">Ghi chú</a></th>
+                <th style="display:none" id="sinhvien-lmh-grid_c10">Term</th>
+              </tr>
+              <tr class="filters">
+                <td>&nbsp;</td>
+                <td><input name="SinhvienLmh[masvTitle]" type="text"></td>
+                <td><input name="SinhvienLmh[hotenTitle]" type="text"></td>
+                <td><input name="SinhvienLmh[ngaysinhTitle]" type="text"></td>
+                <td><input name="SinhvienLmh[lopkhoahocTitle]" type="text"></td>
+                <td><input name="SinhvienLmh[tenlopmonhocTitle]" type="text"></td>
+                <td><input name="SinhvienLmh[tenmonhocTitle]" type="text"></td>
+                <td><input name="SinhvienLmh[nhom]" type="text" maxlength="10"></td>
+                <td><input name="SinhvienLmh[sotinchiTitle]" type="text"></td>
+                <td><input name="SinhvienLmh[ghichu]" type="text" maxlength="200"></td>
+                <td style="display:none"><select name="SinhvienLmh[term_id]">
+                    <option value=""></option>
+                    <option value="038">038</option>
+                    <option value="037">037</option>
+                    <option value="036">036</option>
+                    <option value="035">035</option>
+                    <option value="034">034</option>
+                    <option value="033">033</option>
+                    <option value="032">032</option>
+                    <option value="031">031</option>
+                    <option value="030">030</option>
+                    <option value="029">029</option>
+                  </select></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="11" class="empty"><span class="empty">No results found.</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="keys" style="display:none" title="/qldt/"></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- End of copy 2 -->
 
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
