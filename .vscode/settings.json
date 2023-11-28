@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "sqltools.connections": [
         {
             "mysqlOptions": {
@@ -28,4 +29,7 @@
             "password": ""
         }
     ]
+=======
+  "liveServer.settings.port": 5501
+>>>>>>> hoang-frontend
 }

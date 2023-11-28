@@ -1,19 +1,29 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
 import crud
 from database import SessionLocal, engine
 from datetime import datetime
 from typing import Union
-
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
+
 app = FastAPI()
 db=SessionLocal()
-        
+       
+origins = ["http://127.0.0.1:5501"]  # Add the origin of your frontend application
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
+
 @app.get("/subject/{subject_id}")
 def get_subject(subject_id: int):
     return crud.get_subject(db, subject_id)
