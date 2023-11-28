@@ -41,11 +41,11 @@
       <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
         <div class="navbar-nav mx-auto py-0">
           <a href="index.html" class="nav-item nav-link">Home</a>
-          <div class="nav-item dropdown">
+          <div class="nav-item dropdown active">
             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Portal</a>
             <div class="dropdown-menu m-0">
-              <a href="portal-rieng.html" class="dropdown-item">Riêng</a>
-              <a href="portal-chung.html" class="dropdown-item active">Chung</a>
+              <a href="portal-rieng.html" class="dropdown-item active">Riêng</a>
+              <a href="portal-chung.html" class="dropdown-item">Chung</a>
             </div>
           </div>
           <a href="dangKyHoc.html" class="nav-item nav-link">Đăng ký học</a>
@@ -57,80 +57,47 @@
   </div>
   <!-- Navbar End -->
 
-   <!-- Main Content Start -->
-   <div class="container my-5">
-    <h1 class="text-center mb-4">Portal Chung</h1>
-    <div class="row">
-      <!-- Nganh Start -->
-      <div class="col-md-4">
-        <h2 class="mb-3">Các ngành</h2>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="#nganh1">Ngành 1</a></li>
-          <li class="list-group-item"><a href="#nganh2">Ngành 2</a></li>
-          <li class="list-group-item"><a href="#nganh3">Ngành 3</a></li>
-        </ul>
-      </div>
-      <!-- Nganh End -->
-
-      <!-- Lop Start -->
-      <div class="col-md-4">
-        <h2 class="mb-3">Các lớp</h2>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="#lop1">Lớp 1</a></li>
-          <li class="list-group-item"><a href="#lop2">Lớp 2</a></li>
-          <li class="list-group-item"><a href="#lop3">Lớp 3</a></li>
-        </ul>
-      </div>
-      <!-- Lop End -->
-
-      <!-- Mon Hoc Start -->
-      <div class="col-md-4">
-        <h2 class="mb-3">Các môn học</h2>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="#monhoc1">Môn học 1</a></li>
-          <li class="list-group-item"><a href="#monhoc2">Môn học 2</a></li>
-          <li class="list-group-item"><a href="#monhoc3">Môn học 3</a></li>
-        </ul>
-      </div>
-      <!-- Mon Hoc End -->
-    </div>
-
-    <!-- Nganh Content Start -->
-    <div class="row my-5">
-      <div class="col-md-12">
-        <h2 id="nganh1">Ngành 1</h2>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="#lop1">Lớp 1</a></li>
-          <li class="list-group-item"><a href="#lop2">Lớp 2</a></li>
-          <li class="list-group-item"><a href="#lop3">Lớp 3</a></li>
-        </ul>
+  <div class="container-fluid">
+    <div class="row mx-0 justify-content-center px-5">
+      <div class="col-lg-8">
+        <div class="section-title text-center position-relative my-5">
+          <h1 class="display-4">Thêm mới sinh viên</h1>
+        </div>
       </div>
     </div>
-    <!-- Nganh Content End -->
-
-    <!-- Lop Content Start -->
-    <div class="row my-5">
-      <div class="col-md-12">
-        <h2 id="lop1">Lớp 1</h2>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="#monhoc1">Môn học 1</a></li>
-          <li class="list-group-item"><a href="#monhoc2">Môn học 2</a></li>
-          <li class="list-group-item"><a href="#monhoc3">Môn học 3</a></li>
-        </ul>
-      </div>
+    <div class="container-fluid p-0">
+      <form action="#" method="POST">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="">Họ và tên</label>
+              <input type="text" class="form-control" name="fullname" required>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">Ngày sinh</label>
+              <input type="date" class="form-control" name="dob" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="text-danger">
+              <?= $err_msg?>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <button type="submit" class="btn btn-primary" name="save">Lưu</button>
+            <a href="?r=trang-chu" class="btn btn-secondary">Trở về</a>
+          </div>
+        </div>
+      </form>
     </div>
-    <!-- Lop Content End -->
-
-    <!-- Mon Hoc Content Start -->
-    <div class="row my-5">
-      <div class="col-md-12">
-        <h2 id="monhoc1">Môn học 1</h2>
-        <p>Nội dung môn học 1</p>
-      </div>
-    </div>
-    <!-- Mon Hoc Content End -->
   </div>
-  <!-- Main Content End -->
+
 
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
