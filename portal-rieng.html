@@ -60,14 +60,7 @@
   <!-- Header Start -->
   <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px">
     <div class="container text-center py-5">
-      <h1 class="text-white display-1">Tra Cứu</h1>
-      <div class="d-inline-flex text-white mb-5">
-        <p class="m-0 text-uppercase">
-          <a class="text-white" href="">Portal</a>
-        </p>
-        <i class="fa fa-angle-double-right pt-1 px-3"></i>
-        <p class="m-0 text-uppercase">Riêng</p>
-      </div>
+      <h1 class="text-white display-1 pb-5">Tra Cứu</h1>
       <div class="mx-auto mb-5" style="width: 100%; max-width: 600px">
         <div class="input-group">
           <!-- <div class="input-group-prepend">
@@ -88,9 +81,16 @@
           </div>
         </div>
       </div>
+      <div class="mx-auto mb-5">
+        <button onclick="window.location.href='addNewStudent.html'" class="btn btn-success px-4">
+          Thêm mới sinh viên
+        </button>
+      </div>
     </div>
   </div>
   <!-- Header End -->
+
+  <!-- Main Start -->
 
   <div class="container-fluid p-3">
     <div class="container-fluid bg-image pt-5">
@@ -101,14 +101,13 @@
               <div class="row">
                 <div class="col-12">
                   <div class="card-body p-4">
-                    <h6>Thông tin</h6>
+                    <h5 class="text-center text-primary">Thông tin</h5>
                     <hr class="mt-0 mb-3">
                     <div class="row">
                       <div class="col-4 mb-2">
                         <h6 class="mt-2">MSSV: </h6>
                         <h6 class="mt-2">Họ tên:</h6>
-                        <h6 class="mt-2">Địa chỉ:</h6>
-                        <h6 class="mt-2">Trạng thái:</h6>
+                        <h6 class="mt-2">Lớp</h6>
                         <h6 class="mt-2">GPA:</h6>
                       </div>
                       <div class="col-8 mb-2">
@@ -174,6 +173,7 @@
               <th scope="col">Tên môn học</th>
               <th scope="col">Số tín chỉ</th>
               <th scope="col">Giảng viên</th>
+              <th scope="col">Điểm (hệ 4)</th>
               <th scope="col">Thao tác</th>
             </tr>
           </thead>
@@ -183,9 +183,13 @@
               <td>Lập trình căn bản</td>
               <td>3</td>
               <td>Nguyễn Văn A</td>
+              <td>3</td>
               <td>
                 <button type="button" class="btn btn-outline-danger btn-sm">
                   Xoá môn học
+                </button>
+                <button type="button" class="btn btn-outline-info btn-sm">
+                  Sửa điểm
                 </button>
               </td>
             </tr>
@@ -194,9 +198,13 @@
               <td>Lập trình hướng đối tượng</td>
               <td>3</td>
               <td>Trần Thị B</td>
+              <td>3</td>
               <td>
                 <button type="button" class="btn btn-outline-danger btn-sm">
                   Xoá môn học
+                </button>
+                <button type="button" class="btn btn-outline-info btn-sm">
+                  Sửa điểm
                 </button>
               </td>
             </tr>
@@ -205,9 +213,13 @@
               <td>Cấu trúc dữ liệu và giải thuật</td>
               <td>3</td>
               <td>Phạm Văn C</td>
+              <td>3</td>
               <td>
                 <button type="button" class="btn btn-outline-danger btn-sm">
                   Xoá môn học
+                </button>
+                <button type="button" class="btn btn-outline-info btn-sm">
+                  Sửa điểm
                 </button>
               </td>
             </tr>
@@ -218,7 +230,7 @@
     </div>
   </div>
 
-
+  <!-- Main End -->
 
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
@@ -233,7 +245,7 @@
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
   <!-- Template Javascript -->
-  <script src="js/portal-rieng.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
