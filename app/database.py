@@ -40,3 +40,19 @@ try:
 except Exception as e:
     print(f"Error connecting to the database: {e}")
     
+#     try:
+#     connection = engine.connect()
+
+#     # Example query: select all tables in the database
+#     query = text("SHOW TABLES;")
+#     result = connection.execute(query)
+
+#     # Print table names
+#     print("Tables in the database:")
+#     for row in result:
+#         print(row)
+
+#     connection.close()
+#     print("Connection successful!")
+# except exc.SQLAlchemyError as e:
+#     print(f"Error connecting to the database: {e}")
