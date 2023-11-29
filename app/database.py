@@ -1,6 +1,6 @@
 import os
 import urllib.parse
-
+from sqlalchemy import Column, Integer, String, DateTime, Unicode, ForeignKey
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import create_engine
