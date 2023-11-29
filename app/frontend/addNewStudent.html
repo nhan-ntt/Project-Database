@@ -51,7 +51,7 @@
           <a href="dangKyHoc.html" class="nav-item nav-link">Đăng ký học</a>
           <a href="qldt.html" class="nav-item nav-link">Quản lý đào tạo</a>
         </div>
-        <!-- <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Join Us</a> -->
+        <!-- <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Join Us</a> --> 
       </div>
     </nav>
   </div>
@@ -66,23 +66,31 @@
       </div>
     </div>
     <div class="container-fluid p-0">
-      <form action="#" method="POST">
+      <form action="#" method="">
         <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">MSSV</label>
+              <input type="text" class="form-control" name="student_d" required>
+            </div>
+          </div>
           <div class="col-sm-3">
             <div class="form-group">
               <label for="">Họ và tên</label>
               <input type="text" class="form-control" name="fullname" required>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-sm-2">
             <div class="form-group">
               <label for="">Ngày sinh</label>
               <input type="date" class="form-control" name="dob" required>
             </div>
           </div>
-          <div class="col-sm-1">
+          <div class="col-sm-2">
             <div class="form-group">
-              <label for="">Lớp</label>
+              <label for="">Lớp khoá học</label>
               <input type="text" class="form-control" name="class" required>
             </div>
           </div>
@@ -103,7 +111,7 @@
         <div class="row">
           <div class="col-sm-6">
             <button type="submit" class="btn btn-primary" name="save">Lưu</button>
-            <a href="?r=trang-chu" class="btn btn-secondary">Trở về</a>
+            <a href="portal-rieng.html" class="btn btn-secondary">Trở về</a>
           </div>
         </div>
       </form>
