@@ -81,9 +81,19 @@ def delete_subject(db: Session, student_id: int, subject_class_id: int):
     result = query.delete()
     db.commit()
     return result
+def sign_subject(db: Session, student_id: int, subject_class_id: int=None):
+    # Kiểm tra xem dòng đã tồn tại chưa
+    existing_takeclass = db.query(models.TakeClass).filter_by(student_id=student_id, subject_class_id=subject_class_id).first()
 
-def sign_subject(db: Session, student_id: int, subject_class_id: int):
-    takeclass = models.TakeClass(student_id = student_id, subject_class_id = subject_class_id)
+    if existing_takeclass:
+        # Dòng đã tồn tại, có thể xử lý theo ý muốn của bạn, ví dụ: thông báo lỗi hoặc trả về thông tin đã tồn tại
+        return "Bản ghi đã tồn tại trong CSDL"
+ 
+    # Dòng chưa tồn tại, thêm mới
+    takeclass = models.TakeClass(student_id=student_id, subject_class_id=subject_class_id)
     db.add(takeclass)
+
+    
     db.commit()
     return takeclass
+  
