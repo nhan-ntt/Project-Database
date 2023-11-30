@@ -130,7 +130,7 @@
           </div>
         </div>
         <div class="container justify-content-center align-content-center text-center my-3">
-            <button type="submit" onclick="" class="btn btn-primary px-sm-2">
+            <button onclick="window.location.href='editStudent.html'" class="btn btn-primary px-sm-2">
               Chỉnh sửa thông tin
             </button>
             <button type="submit" onclick="" class="btn btn-danger px-sm-2">
@@ -146,26 +146,6 @@
           <div class="section-title text-center position-relative">
             <h1 class="display-4">Danh sách các học phần đã đăng ký</h1>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-10 offset-md-1 mb-3 mt-3">
-          <form class="text-center" id="sinhvienlmh-form" action="/qldt/" method="post">
-            <b>Học kỳ:</b>
-            <select class="form-select target" name="" id="SinhvienLmh_term_id">
-              <option value="">Lựa chọn học kỳ</option>
-              <option value="10">Học kỳ 1 năm học 2023-2024</option>
-              <option value="9">Học kỳ 2 năm học 2022-2023</option>
-              <option value="8">Học kỳ 2 năm học 2022-2023</option>
-              <option value="7">Học kỳ 1 năm học 2022-2023</option>
-              <option value="6">Học kỳ 2 năm học 2021-2022</option>
-              <option value="5">Học kỳ 2 năm học 2021-2022</option>
-              <option value="4">Học kỳ 1 năm học 2021-2022</option>
-              <option value="3">Học kỳ 2 năm học 2020-2021</option>
-              <option value="2">Học kỳ 2 năm học 2020-2021</option>
-              <option value="1">Học kỳ 1 năm học 2020-2021</option>
-            </select>
-          </form>
         </div>
       </div>
 
@@ -192,39 +172,11 @@
                 <button type="button" class="btn btn-outline-danger btn-sm">
                   Xoá môn học
                 </button>
-                <button type="button" class="btn btn-outline-info btn-sm">
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="showInputField()">
                   Sửa điểm
                 </button>
-              </td>
-            </tr>
-            <tr>
-              <td>CSC102</td>
-              <td>Lập trình hướng đối tượng</td>
-              <td>3</td>
-              <td>Trần Thị B</td>
-              <td>3</td>
-              <td>
-                <button type="button" class="btn btn-outline-danger btn-sm">
-                  Xoá môn học
-                </button>
-                <button type="button" class="btn btn-outline-info btn-sm">
-                  Sửa điểm
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>CSC103</td>
-              <td>Cấu trúc dữ liệu và giải thuật</td>
-              <td>3</td>
-              <td>Phạm Văn C</td>
-              <td>3</td>
-              <td>
-                <button type="button" class="btn btn-outline-danger btn-sm">
-                  Xoá môn học
-                </button>
-                <button type="button" class="btn btn-outline-info btn-sm">
-                  Sửa điểm
-                </button>
+                <input class="align-items-sm-center" type="text" id="inputField" style="display: none; width: 100px;">
+                <button class="btn btn-primary btn-sm" type="button" id="saveButton" style="display: none;" onclick="saveGrade()">Lưu</button>
               </td>
             </tr>
           </tbody>
@@ -235,6 +187,26 @@
   </div>
 
   <!-- Main End -->
+
+  <script>
+    function showInputField() {
+      var inputField = document.getElementById("inputField");
+      var saveButton = document.getElementById("saveButton");
+      inputField.style.display = "inline-block";
+      saveButton.style.display = "inline-block";
+    }
+  
+    function saveGrade() {
+      var inputField = document.getElementById("inputField");
+      var grade = inputField.value;
+      // Thực hiện các thao tác lưu điểm mới vào cơ sở dữ liệu hoặc xử lý theo yêu cầu của bạn
+      // Ví dụ: gửi dữ liệu điểm mới qua Ajax để lưu
+      console.log("Điểm mới: " + grade);
+      // Sau khi lưu thành công, bạn có thể ẩn ô nhập liệu và nút "Lưu" nếu cần
+      inputField.style.display = "none";
+      saveButton.style.display = "none";
+    }
+  </script>
 
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
