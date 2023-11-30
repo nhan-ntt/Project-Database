@@ -1,6 +1,7 @@
+drop database if exists projectdb_quanlidaotao;
 create database projectdb_quanlidaotao;
 use projectdb_quanlidaotao;
--- drop database projectdb_quanlidaotao;
+SET NAMES 'utf8mb4';
 
 CREATE TABLE `semester` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -26,9 +27,9 @@ CREATE TABLE `student` (
 );
 
 CREATE TABLE `courseClass` (
-  `id` int not null PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` int not null PRIMARY KEY AUTO_INCREMENT,
   `major_id` int not null,
-  `gen` int not null
+  `gen` varchar(10) not null
 );
 
 
@@ -71,69 +72,82 @@ ALTER TABLE `takeClass` ADD FOREIGN KEY (`subject_class_id`) REFERENCES `subject
 ALTER TABLE `takeClass` ADD FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
 
 
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2020', '1');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2020', '2');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2020', '3');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2021', '1');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2021', '2');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2021', '3');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2022', '1');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2022', '2');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2022', '3');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2023', '1');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2023', '2');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2023', '3');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2024', '1');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2024', '2');
-INSERT INTO `projectdb_quanlidaotao`.`semester` (`year_start`, `term`) VALUES ('2024', '3');
+-- Nhập dữ liệu cho bảng semester
+INSERT INTO semester (year_start, term) VALUES
+(2021, 1),
+(2021, 2),
+(2022, 1),
+(2022, 2),
+(2023, 1),
+(2023, 2);
 
+-- Nhập dữ liệu cho bảng major
+INSERT INTO major (code, name) VALUES
+('CN1', 'Công nghệ thông tin'),
+('CN2', 'Kỹ thuật máy tính'),
+('CN3', 'Khoa học máy tính'),
+('CN4', 'Hệ thống thông tin'),
+('CN5', 'Kỹ thuật phần mềm'),
+('CN6', 'Mạng máy tính'),
+('CN7', 'Trí tuệ nhân tạo'),
+('CN8', 'An toàn thông tin'),
+('CN9', 'Quản trị dự án'),
+('CN10', 'Thương mại điện tử');
 
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN1', 'Công nghệ thông tin');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN2', 'Kĩ thuật máy tính');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN3', 'Vật lý kĩ thuật');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN4', 'Cơ kĩ thuật');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN5', 'Công nghệ kĩ thuật xây dựng');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN6', 'Công nghệ kĩ thuật cơ điện tử');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN7', 'Công nghệ hàng không vũ trụ');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN8', 'Khoa học máy tính');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN9', 'Công nghệ kĩ thuật Điện tử - Viễn thông');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN10', 'Công nghệ nông nghiệp');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN11', ' Kỹ thuật điều khiển và tự động hoá');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN12', 'Trí tuệ nhân tạo');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN13', 'Kỹ thuật năng lượng');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN14', 'Hệ thống thông tin');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN15', 'Mạng máy tính và truyền thông dữ liệu');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN16', 'CNTT định hướng thị trường Nhật Bản');
-INSERT INTO `projectdb_quanlidaotao`.`major` (`code`, `name`) VALUES ('CN17', 'Kỹ thuật Robot');
+-- Nhập dữ liệu cho bảng courseClass
+INSERT INTO courseClass (major_id, gen) VALUES
+(1, 'K67'),
+(2, 'K68'),
+(3, 'K69');
 
-INSERT INTO `projectdb_quanlidaotao`.`student` (`id`, `name`, `date_of_birth`, `course_class_id`) VALUES ('1234', 'adf', '2004-11-19', '1');
-INSERT INTO `projectdb_quanlidaotao`.`student` (`id`, `name`, `date_of_birth`, `course_class_id`) VALUES ('23', 'sgf', '2003-12-21', '2');
-INSERT INTO `projectdb_quanlidaotao`.`student` (`id`, `name`, `date_of_birth`, `course_class_id`) VALUES ('2353', 'ssaf', '2003-12-21', '3');
+-- Nhập dữ liệu cho bảng subject
+INSERT INTO subject (subject_code, credit, subject_name) VALUES
+('INT01', 3, 'Lập trình cơ bản'),
+('INT02', 4, 'Cấu trúc dữ liệu và giải thuật'),
+('INT03', 3, 'Hệ điều hành'),
+('INT04', 3, 'Cơ sở dữ liệu'),
+('INT05', 4, 'Phân tích và thiết kế hệ thống'),
+('INT06', 3, 'Mạng máy tính'),
+('INT07', 4, 'Trí tuệ nhân tạo'),
+('INT08', 3, 'An toàn thông tin'),
+('INT09', 3, 'Quản trị dự án'),
+('INT10', 4, 'Thương mại điện tử');
 
+-- Nhập dữ liệu cho bảng subjectClass
+INSERT INTO subjectClass (subject_id, semester_id, class_index, room, start_time, end_time, week_day) VALUES
+(1, 1, 1, 'G2-101', '08:00:00', '10:00:00', 'Thứ 2'),
+(2, 1, 2, 'G2-202', '10:30:00', '12:30:00', 'Thứ 3'),
+(3, 2, 1, 'GĐ3-303', '13:30:00', '15:30:00', 'Thứ 4'),
+(4, 2, 2, 'GĐ4-404', '08:00:00', '10:00:00', 'Thứ 5'),
+(5, 3, 1, 'GĐ5-505', '10:30:00', '12:30:00', 'Thứ 6'),
+(6, 3, 2, 'GĐ6-606', '13:30:00', '15:30:00', 'Thứ 7'),
+(7, 2, 1, 'GĐ7-707', '08:00:00', '10:00:00', 'Chủ nhật'),
+(8, 3, 2, 'GĐ8-808', '10:30:00', '12:30:00', 'Thứ 2'),
+(9, 1, 1, 'GĐ9-909', '13:30:00', '15:30:00', 'Thứ 3'),
+(10, 3, 2, 'GĐ10-1010', '08:00:00', '10:00:00', 'Thứ 4');
 
-INSERT INTO `projectdb_quanlidaotao`.`subject` (`subject_code`, `credit`, `subject_name`) VALUES ('INT1008', '4', 'Nhập môn lập trình');
-INSERT INTO `projectdb_quanlidaotao`.`subject` (`subject_code`, `credit`, `subject_name`) VALUES ('INT1007', '3', 'GTCNTT');
-INSERT INTO `projectdb_quanlidaotao`.`subject` (`subject_code`, `credit`, `subject_name`) VALUES ('INT2215', '4', 'Lập trình nâng cao');
-INSERT INTO `projectdb_quanlidaotao`.`subject` (`subject_code`, `credit`, `subject_name`) VALUES ('INT2204', '4', 'Lập trình hướng đối tượng');
+-- Nhập dữ liệu cho bảng student
+INSERT INTO student (id, name, date_of_birth, course_class_id) VALUES
+(22020001, 'Nguyễn Văn A', '2000-01-01', 1),
+(22020002, 'Trần Thị B', '2001-02-02', 2),
+(22020003, 'Lê Văn C', '2002-03-03', 3),
+(22020004, 'Phạm Thị D', '2003-04-04', 2),
+(22020005, 'Hoàng Văn E', '2004-05-05', 1),
+(22020006, 'Vũ Thị F', '2005-06-06', 3),
+(22020007, 'Đặng Văn G', '2006-07-07', 2),
+(22020008, 'Trương Thị H', '2007-08-08', 3),
+(22020009, 'Lý Văn I', '2008-09-09', 1),
+(22020010, 'Ngô Thị K', '2009-10-10', 1);
 
-
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('1', '67');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('12', '67');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('16', '67');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('8', '67');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('2', '66');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('3', '66');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('4', '66');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('9', '68');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('8', '68');
-INSERT INTO `projectdb_quanlidaotao`.`courseclass` (`major_id`, `gen`) VALUES ('12', '68');
-
-INSERT INTO `projectdb_quanlidaotao`.`subjectclass` (`subject_id`, `semester_id`, `class_index`, `room`, `start_time`, `end_time`, `week_day`) VALUES ('1', '3', '20', '301-G2', '8:00', '9:00', 'mon');
-INSERT INTO `projectdb_quanlidaotao`.`subjectclass` (`subject_id`, `semester_id`, `class_index`, `room`, `start_time`, `end_time`, `week_day`) VALUES ('1', '2', '21', '107-G2', '9:00', '11:00', 'mon');
-INSERT INTO `projectdb_quanlidaotao`.`subjectclass` (`subject_id`, `semester_id`, `class_index`, `room`, `start_time`, `end_time`, `week_day`) VALUES ('2', '2', '40', '106-G2', '7:00', '10:00', 'tue');
-
-
-INSERT INTO `projectdb_quanlidaotao`.`takeclass` (`student_id`, `subject_class_id`) VALUES ('1234', '1');
-INSERT INTO `projectdb_quanlidaotao`.`takeclass` (`student_id`, `subject_class_id`) VALUES ('1234', '2');
-INSERT INTO `projectdb_quanlidaotao`.`takeclass` (`student_id`, `subject_class_id`) VALUES ('23', '3');
-INSERT INTO `projectdb_quanlidaotao`.`takeclass` (`student_id`, `subject_class_id`) VALUES ('23', '2');
+-- Nhập dữ liệu cho bảng takeClass
+INSERT INTO takeClass (student_id, subject_class_id, gpa, status) VALUES
+(22020001, 1, 3.5, 'Đã hoàn thành'),
+(22020001, 2, 4.0, 'Đã hoàn thành'),
+(22020002, 1, null, 'Chưa hoàn thành'),
+(22020002, 3, 3.0, 'Đã hoàn thành'),
+(22020003, 2, null, 'Chưa hoàn thành'),
+(22020003, 4, 3.0, 'Đã hoàn thành'),
+(22020004, 3, null, 'Chưa hoàn thành'),
+(22020004, 5, 3.5, 'Đã hoàn thành'),
+(22020005, 4, null, 'Chưa hoàn thành'),
+(22020005, 6, 2.5, 'Đã hoàn thành');
