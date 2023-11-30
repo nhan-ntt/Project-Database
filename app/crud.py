@@ -5,7 +5,7 @@ from sqlalchemy import func,asc
 
 
 def get_subject(db: Session, subject_id: int):
-    return db.query(models.SubjectClass).filter(models.SubjectClass.id == subject_id).all()
+    return db.query(models.Subject).filter(models.Subject.id == subject_id).all()
 
 
 def get_qldt(
@@ -54,9 +54,13 @@ def get_qldt(
 
 def get_in4_student(db: Session, student_id: int):
     query = (
-        db.query(models.Student.id, models.Student.name, models.Student.date_of_birth,
-                func.concat("K",models.CourseClass.gen, "-", models.Major.code).label('course_class_name'),
-                )
+        db.query(
+            models.Student.id,
+            models.Student.name,
+            models.Student.date_of_birth,
+            func.concat("K", models.CourseClass.gen, "-", models.Major.code).label('course_class_name'),
+            (func.sum(models.Subject.credit * models.TakeClass.gpa) / func.sum(models.Subject.credit)).label('gpa')
+        )
         .join(models.TakeClass, models.Student.id == models.TakeClass.student_id)
         .join(models.SubjectClass, models.SubjectClass.id == models.TakeClass.subject_class_id)
         .join(models.Subject, models.Subject.id == models.SubjectClass.id)
@@ -81,9 +85,19 @@ def delete_subject(db: Session, student_id: int, subject_class_id: int):
     result = query.delete()
     db.commit()
     return result
+def sign_subject(db: Session, student_id: int, subject_class_id: int=None):
+    # Kiểm tra xem dòng đã tồn tại chưa
+    existing_takeclass = db.query(models.TakeClass).filter_by(student_id=student_id, subject_class_id=subject_class_id).first()
 
-def sign_subject(db: Session, student_id: int, subject_class_id: int):
-    takeclass = models.TakeClass(student_id = student_id, subject_class_id = subject_class_id)
+    if existing_takeclass:
+        # Dòng đã tồn tại, có thể xử lý theo ý muốn của bạn, ví dụ: thông báo lỗi hoặc trả về thông tin đã tồn tại
+        return "Bản ghi đã tồn tại trong CSDL"
+ 
+    # Dòng chưa tồn tại, thêm mới
+    takeclass = models.TakeClass(student_id=student_id, subject_class_id=subject_class_id)
     db.add(takeclass)
+
+    
     db.commit()
     return takeclass
+  
