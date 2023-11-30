@@ -3,19 +3,19 @@ import mysql.connector
 
 # MySQL Connection Parameters
 mysql_config = {
-    'host': 'localhost',
+    'host': 'localhost:3307',
     'user': 'root',
-    'password': 'Thanhnhan1911@',
+    'password': 'ngocanh5624',
     'database': 'projectdb_quanlidaotao',
 }
 
 # Load CSV into DataFrame
-dfSubject = pd.read_csv('app/models/subjectclass.csv')
+dfSubject = pd.read_csv('app/subjectclass.csv')
 
-dfStudent = pd.read_csv('app/models/student.csv')
+dfStudent = pd.read_csv('app/student.csv')
 dfStudent['date_of_birth'] = pd.to_datetime(dfStudent['date_of_birth'], format='%d/%m/%Y').dt.strftime('%Y-%m-%d')
 
-dfTake = pd.read_csv('app/models/takeclass.csv')
+dfTake = pd.read_csv('app/takeclass.csv')
 dfTake.replace('', pd.NA, inplace=True)
 
 # Connect to MySQL

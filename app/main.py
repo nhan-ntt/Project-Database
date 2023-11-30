@@ -1,30 +1,52 @@
-# import uvicorn
-from dotenv import load_dotenv
-from fastapi import FastAPI, Path, Query
+from fastapi import Depends, FastAPI, HTTPException
+from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
-# Load environment variables from .env file
-load_dotenv()
+import crud
+from database import SessionLocal, engine
+from datetime import datetime
+from typing import Union
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+
 
 app = FastAPI()
+db=SessionLocal()
+       
+origins = ["http://127.0.0.1:5501"]  # Add the origin of your frontend application
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
+@app.get("/subject/{subject_id}")
+def get_subject(subject_id: int):
+    return crud.get_subject(db, subject_id)
 
-@app.get("/")
-async def index():
-    return {"message": "Helldsfasasfdo"}
+#get infomarion of portal from student_id
+@app.get("/qldt")
+def qldt(student_id: int | None = None ,student_name: str | None = None, 
+         date_of_birth: datetime | None = None, course_class_code: str | None = None, subject_class_id: int | None = None,
+         subject_code: str | None = None, subject_name: str | None = None,
+         credit: int | None = None,semester_id: int| None = None):
+    return crud.get_qldt(db, student_id, student_name,
+                         date_of_birth, course_class_code,
+                         subject_class_id, subject_code,
+                         subject_name, credit, semester_id)
+    
+@app.delete("/portalrieng")
+def remove_subject(student_id: int, subject_class_id: int):
+    return crud.delete_subject(db, student_id, subject_class_id)
 
+@app.get("/portalrieng")
+def in4_student(student_id: int):
+    return crud.get_in4_student(db, student_id)
 
-@app.get("/hello")
-async def hello(name: str, age: int):
-    return {"name": name, "age": age}
-
-#
-# @app.get("/hello/{name}")
-# async def hello(name: str = Path(..., min_length=4, max_length=10)):
-#     return {"name": name}
-#
-#
-# @app.get("/hello/{name}/{age}")
-# async def hello(*, name: str = Path(..., min_length=3, max_length=10),
-#       age: int = Path(..., ge=1, le=100),
-#                 percent:float=Query(..., ge=0, le=100)):
-#     return {"name": name, "age": age, "percent": percent}
+@app.post("/portalrieng")
+def add_subject(student_id: int, subject_class_id: int):
+    return crud.sign_subject(db, student_id, subject_class_id)
