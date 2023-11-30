@@ -1,0 +1,35 @@
+{
+<<<<<<< HEAD
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "projectdb-quanlidaotao",
+            "database": "projectdb-quanlidaotao",
+            "username": "root"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3307,
+            "driver": "MySQL",
+            "name": "qldt",
+            "database": "qldt",
+            "username": "root",
+            "password": ""
+        }
+    ]
+=======
+  "liveServer.settings.port": 5501
+>>>>>>> hoang-frontend
+}

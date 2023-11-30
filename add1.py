@@ -18,19 +18,19 @@ decoded_password = urllib.parse.unquote_plus(db_password)
 
 
 mysql_config = {
-    'host': db_host,
-    'user': db_user,
-    'password': decoded_password,
-    'database': db_name,
+    'host': 'localhost',
+    'port': 3307,  # Your MySQL server port
+    'user': 'root',
+    'password': 'ngocanh5624',
+    'database': 'projectdb_quanlidaotao',
 }
-
 # Load CSV into DataFrame
-dfSubject = pd.read_csv('app/models/subjectclass.csv')
+dfSubject = pd.read_csv('app/subjectclass.csv')
+dfStudent = pd.read_csv('app/student.csv')
+dfTake = pd.read_csv('app/takeclass.csv')
 
-dfStudent = pd.read_csv('app/models/student.csv')
 dfStudent['date_of_birth'] = pd.to_datetime(dfStudent['date_of_birth'], format='%d/%m/%Y').dt.strftime('%Y-%m-%d')
 
-dfTake = pd.read_csv('app/models/takeclass.csv')
 dfTake.replace('', pd.NA, inplace=True)
 
 # Connect to MySQL

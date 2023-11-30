@@ -18,12 +18,14 @@ decoded_password = urllib.parse.unquote_plus(db_password)
 
 
 mysql_config = {
-    'host': db_host,
-    'user': db_user,
-    'password': decoded_password,
-    'database': db_name,
+    'host': 'localhost',
+    'port': 3307,  # Your MySQL server port
+    'user': 'root',
+    'password': 'ngocanh5624',
+    'database': 'projectdb_quanlidaotao',
 }
-dfTake = pd.read_csv('app/models/takeclass.csv')
+
+dfTake = pd.read_csv('app/takeclass.csv')
 dfTake.replace('', pd.NA, inplace=True)
 
 # Connect to MySQL
