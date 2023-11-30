@@ -133,7 +133,7 @@
             <button onclick="window.location.href='editStudent.html'" class="btn btn-primary px-sm-2">
               Chỉnh sửa thông tin
             </button>
-            <button type="submit" onclick="" class="btn btn-danger px-sm-2">
+            <button type="button" class="btn btn-danger px-sm-2" onclick="confirmDeleteStudent()">
               Xoá sinh viên
             </button>
         </div>
@@ -169,7 +169,7 @@
               <td>Nguyễn Văn A</td>
               <td>3</td>
               <td>
-                <button type="button" class="btn btn-outline-danger btn-sm">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDelete()">
                   Xoá môn học
                 </button>
                 <button type="button" class="btn btn-outline-info btn-sm" onclick="showInputField()">
@@ -188,25 +188,48 @@
 
   <!-- Main End -->
 
-  <script>
-    function showInputField() {
-      var inputField = document.getElementById("inputField");
-      var saveButton = document.getElementById("saveButton");
-      inputField.style.display = "inline-block";
-      saveButton.style.display = "inline-block";
-    }
-  
-    function saveGrade() {
-      var inputField = document.getElementById("inputField");
-      var grade = inputField.value;
-      // Thực hiện các thao tác lưu điểm mới vào cơ sở dữ liệu hoặc xử lý theo yêu cầu của bạn
-      // Ví dụ: gửi dữ liệu điểm mới qua Ajax để lưu
-      console.log("Điểm mới: " + grade);
-      // Sau khi lưu thành công, bạn có thể ẩn ô nhập liệu và nút "Lưu" nếu cần
-      inputField.style.display = "none";
-      saveButton.style.display = "none";
-    }
-  </script>
+  <!-- Thông báo chắc chắn muốn xoá -->
+
+  <div class="modal fade" id="confirmDeleteMonHoc" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Xác nhận xoá môn học</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn chắc chắn xoá môn học này chứ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Huỷ</button>
+          <button type="button" class="btn btn-danger" onclick="deleteSubject()">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="confirmDeleteStudent" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Xác nhận xoá sinh viên</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn chắc chắn muốn xoá sinh viên này chứ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Huỷ</button>
+          <button type="button" class="btn btn-danger" onclick="deleteStudent()">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
