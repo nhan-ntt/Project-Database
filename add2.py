@@ -1,7 +1,22 @@
+import os
+import urllib.parse
+
+from dotenv import load_dotenv
 import pandas as pd
 import mysql.connector
+# Load environment variables from .env file
+load_dotenv()
 
-# MySQL Connection Parameters
+# Get database credentials from environment variables
+
+db_user = os.getenv("DB_USER")
+db_password = urllib.parse.quote_plus(os.getenv("DB_PASSWORD"))
+db_host = os.getenv("DB_HOST")
+db_name = os.getenv("DB_NAME")
+
+decoded_password = urllib.parse.unquote_plus(db_password)
+
+
 mysql_config = {
     'host': 'localhost',
     'port': 3307,  # Your MySQL server port
