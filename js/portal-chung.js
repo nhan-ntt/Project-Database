@@ -8,11 +8,11 @@ function getInfor(apiUrlParam, callback) {
         .then(callback);
 }
 
-function renderInfor(portalrieng) {
+function renderInfor(subject) {
     var listqldtBlock = document.querySelector(".list-subject");
     listqldtBlock.innerHTML = "";
 
-    var htmls = portalrieng.map(function (item, index) {
+    var htmls = subject.map(function (item, index) {
         return `
       <tr >
         <td>${index + 1}</td>

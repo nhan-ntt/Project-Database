@@ -1,10 +1,10 @@
-let apiUrl="http://127.0.0.1:8000/portalrieng?";
+let apiUrl="http://127.0.0.1:8000/subject?";
 function searchStudent() {
     const studentIdInput = document.getElementById('student_id');
     const studentId = studentIdInput.value;
 
     if (studentId) {
-        apiUrl = `http://127.0.0.1:8000/portalrieng?student_id=${studentId}`;
+        apiUrl = `http://127.0.0.1:8000/subject?student_id=${studentId}`;
         getInfor(apiUrl, renderInfor);
     } else {
         console.log('Please enter a student ID');
@@ -21,22 +21,22 @@ function getInfor(apiUrlParam, callback) {
 }
 
 
-function renderInfor(portalrieng) {
+function renderInfor(subject) {
     var inforBlock = document.querySelector('.thongtin');
     inforBlock.innerHTML=
        `
         <div class="col-2 mb-2">
-            <h6 class="mt-2">MSSV:  ${portalrieng.id}</h6>
-            <h6 class="mt-2">Họ tên:${portalrieng.name}</h6>
-            <h6 class="mt-2">Ngày sinh:${portalrieng.date_of_birth}</h6>
-            <h6 class="mt-2">Lớp:${portalrieng.course_class_name}</h6>
-            <h6 class="mt-2">GPA:${portalrieng.weighted_gpa}</h6>
+            <h6 class="mt-2">MSSV:  ${subject.id}</h6>
+            <h6 class="mt-2">Họ tên:${subject.name}</h6>
+            <h6 class="mt-2">Ngày sinh:${subject.date_of_birth}</h6>
+            <h6 class="mt-2">Lớp:${subject.course_class_name}</h6>
+            <h6 class="mt-2">GPA:${subject.weighted_gpa}</h6>
          </div>
         `;
-    console.log(portalrieng);
+    console.log(subject);
 }
 function start() {
-    searchStudent();
+    //searchStudent();
     getInfor(apiUrl,renderInfor );
 }
 start();
