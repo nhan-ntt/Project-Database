@@ -76,7 +76,7 @@ ALTER TABLE `takeClass` ADD FOREIGN KEY (`student_id`) REFERENCES `student` (`id
 INSERT INTO semester (year_start, term) VALUES
 (2021, 1),
 (2021, 2),
-(2022, 1)
+(2022, 1),
 (2022, 2),
 (2023, 1),
 (2023, 2);
@@ -143,11 +143,11 @@ INSERT INTO student (id, name, date_of_birth, course_class_id) VALUES
 INSERT INTO takeClass (student_id, subject_class_id, gpa, status) VALUES
 (22020001, 1, 3.5, 'Đã hoàn thành'),
 (22020001, 2, 4.0, 'Đã hoàn thành'),
-(22020002, 1, 2.5, 'Chưa hoàn thành'),
+(22020002, 1, null, 'Chưa hoàn thành'),
 (22020002, 3, 3.0, 'Đã hoàn thành'),
-(22020003, 2, 3.2, 'Chưa hoàn thành'),
-(22020003, 4, 3.8, 'Đã hoàn thành'),
-(22020004, 3, 2.9, 'Chưa hoàn thành'),
-(22020004, 5, 3.7, 'Đã hoàn thành'),
-(22020005, 4, 3.1, 'Chưa hoàn thành'),
-(22020005, 6, 3.9, 'Đã hoàn thành');
+(22020003, 2, null, 'Chưa hoàn thành'),
+(22020003, 4, 3.0, 'Đã hoàn thành'),
+(22020004, 3, null, 'Chưa hoàn thành'),
+(22020004, 5, 3.5, 'Đã hoàn thành'),
+(22020005, 4, null, 'Chưa hoàn thành'),
+(22020005, 6, 2.5, 'Đã hoàn thành');
