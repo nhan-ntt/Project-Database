@@ -50,3 +50,7 @@ def in4_student(student_id: int):
 @app.post("/portalrieng")
 def add_subject(student_id: int, subject_class_id: int):
     return crud.sign_subject(db, student_id, subject_class_id)
+
+@app.get("/portalchung")
+def ctdt():
+    return crud.get_ctdt(db)
