@@ -4,12 +4,13 @@ import mysql.connector
 # MySQL Connection Parameters
 mysql_config = {
     'host': 'localhost',
+    'port': 3307,  # Your MySQL server port
     'user': 'root',
-    'password': 'Thanhnhan1911@',
+    'password': 'ngocanh5624',
     'database': 'projectdb_quanlidaotao',
 }
 
-dfTake = pd.read_csv('app/models/takeclass.csv')
+dfTake = pd.read_csv('app/takeclass.csv')
 dfTake.replace('', pd.NA, inplace=True)
 
 # Connect to MySQL
