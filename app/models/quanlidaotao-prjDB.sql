@@ -1,6 +1,7 @@
 drop database if exists projectdb_quanlidaotao;
 create database projectdb_quanlidaotao;
 use projectdb_quanlidaotao;
+SET NAMES 'utf8mb4';
 
 CREATE TABLE `semester` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
