@@ -26,6 +26,7 @@
   <link href="css/style.css" rel="stylesheet" />
 </head>
 
+
 <body>
   <!-- Navbar Start -->
   <div class="container-fluid p-0">
@@ -41,48 +42,76 @@
       <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
         <div class="navbar-nav mx-auto py-0">
           <a href="index.html" class="nav-item nav-link">Home</a>
-          <div class="nav-item dropdown">
+          <div class="nav-item dropdown active">
             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Portal</a>
             <div class="dropdown-menu m-0">
-              <a href="portal-rieng.html" class="dropdown-item">Riêng</a>
-              <a href="portal-chung.html" class="dropdown-item active">Chung</a>
+              <a href="portal-rieng.html" class="dropdown-item active">Riêng</a>
+              <a href="portal-chung.html" class="dropdown-item">Chung</a>
             </div>
           </div>
           <a href="dangKyHoc.html" class="nav-item nav-link">Đăng ký học</a>
           <a href="qldt.html" class="nav-item nav-link">Quản lý đào tạo</a>
         </div>
-        <!-- <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Join Us</a> -->
+        <!-- <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Join Us</a> --> 
       </div>
     </nav>
   </div>
   <!-- Navbar End -->
 
-  <!-- Main Content Start -->
-  <div class="container-fluid my-5">
-    <h1 class="text-center mb-5">Chương trình đào tạo</h1>
-    <div id="ket-qua" class="table-responsive-md">
-      <table class="table table-striped table-bordered table-hover table-responsive-sm">
-        <thead>
-          <tr>
-            <th scope="col">STT</th>
-            <th scope="col">Mã môn học</th>
-            <th scope="col">Tên môn học</th>
-            <th scope="col">Số tín chỉ</th>
-          </tr>
-        </thead>
-        <tbody class="list-subject">
-          <tr id="subject">
-            <th scope="row">1</th>
-            <td>CSE101</td>
-            <td>Lập trình căn bản</td>
-            <td>3</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="container-fluid">
+    <div class="row mx-0 justify-content-center px-5">
+      <div class="col-lg-8">
+        <div class="section-title text-center position-relative my-5">
+          <h1 class="display-4">Chỉnh sửa sinh viên</h1>
+        </div>
+      </div>
+    </div>
+    <div class="infor">
+      <form action="#" method="">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="">MSSV</label>
+              <input id="student_id" type="text" class="form-control" name="student_d" required>
+            </div>
+          </div>
+          
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="">Họ và tên</label>
+              <input id="student_name" type="text" class="form-control" name="fullname" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="date_of_birth">Ngày sinh</label>
+              <input id="date_of_birth" type="text" class="form-control" name="dob" placeholder="yyyy-mm-dd" required>
+             
+            </div>
+          </div>
+      
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="text-danger">
+              <?= $err_msg?>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <button id="Save" type="submit" class="btn btn-primary" name="save">Lưu</button>
+            <a href="portal-rieng.html" class="btn btn-secondary">Trở về</a>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-  </div>
-  <!-- Main Content End -->
+
 
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
@@ -97,8 +126,28 @@
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
   <!-- Template Javascript -->
-  <script src="js/portal-chung.js"></script>
+  <script src="js/editStudent.js"></script>
 </body>
 
+</html>
+<script>
+  // Wait for the DOM to be ready
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get the Save button
+    var saveBtn = document.getElementById('Save');
+
+    // Attach a click event listener to the Save button
+    saveBtn.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Call the editStudent function when the Save button is clicked
+      editStudent(function (data) {
+        // Handle the response data if needed
+        console.log(data);
+      });
+    });
+  });
+</script>
+</body>
 
 </html>

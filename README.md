@@ -17,3 +17,5 @@
     DB_HOST=localhost
     DB_NAME=projectdb_quanlidaotao
      ```
+4.Database có vấn đề. Lúc add sinh viên phải lưu ý course_clasa_id phải tồn tại
+
