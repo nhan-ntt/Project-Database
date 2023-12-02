@@ -62,7 +62,9 @@ def get_in4_student(db: Session, student_id: int):
     .join(models.Subject, models.Subject.id == models.SubjectClass.subject_id)
     .filter(
         models.TakeClass.student_id == student_id,
-        models.TakeClass.gpa.isnot(None)
+        models.TakeClass.gpa.isnot(None),
+        models.TakeClass.gpa>=1.0
+
     )
     ).subquery()
 
@@ -106,12 +108,13 @@ def get_list_subject_rieng(db: Session, student_id: int):
     query = (
         db.query(
             models.Subject.subject_code, models.Subject.subject_name,
-            models.Subject.credit, models.TakeClass.gpa,
+            models.Subject.credit, models.TakeClass.gpa,models.TakeClass.status,
+
             models.Subject.id.label('subject_id'),
             models.Semester.term.label('semester_term'),
             models.Semester.year_start.label('semester_yearstart'),
             models.Semester.id.label('semester_id'),
-            models.SubjectClass.id.label('subject_class_id')
+            models.SubjectClass.id.label('subject_class_id'),
         )
         .join(models.SubjectClass, models.SubjectClass.id == models.TakeClass.subject_class_id)
         .join(models.Subject, models.Subject.id == models.SubjectClass.subject_id)
@@ -222,3 +225,23 @@ def add_student(db: Session, student_id: int, student_name: str, date_of_birth: 
     
     db.commit()
     return student
+def update_score(db: Session, student_id: int, subject_class_id: int, gpa: float):
+    try:
+        # Update student information
+        
+        db.query(models.TakeClass).filter(models.TakeClass.student_id == student_id, models.TakeClass.subject_class_id == subject_class_id).update(
+            {
+                models.TakeClass.gpa: gpa,
+                models.TakeClass.status: "Finished" if gpa >= 1.0 else "Failed"
+            }
+        )
+            
+
+        db.commit()
+        return True
+
+    except MultipleResultsFound as e:
+       return  "Error: {e}. Multiple results found when exactly one was required. Handling gracefully."
+
+    except NoResultFound as e:
+        return "Error: {e}. No result found when one was required."

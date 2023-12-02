@@ -67,3 +67,6 @@ def add_student(student_id: int, student_name: str, date_of_birth: date, course_
 @app.put("/editStudent")
 def update_inforStudent(student_id: int, student_name: str, date_of_birth: date):
     return crud.update_inforStudent(db, student_id, student_name, date_of_birth)
+@app.put("/editScore")
+def update_score(student_id: int, subject_class_id: int, gpa: float):
+    return crud.update_score(db, student_id, subject_class_id, gpa)
