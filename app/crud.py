@@ -1,27 +1,44 @@
 from sqlalchemy.orm import Session
 import models
 from datetime import date
-from sqlalchemy import func,asc
+from sqlalchemy import func,asc,desc
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
+from sqlalchemy import and_, or_
 
 
 def get_subject(db: Session, subject_id: int):
     return db.query(models.Subject).filter(models.Subject.id == subject_id).all()
+from sqlalchemy.sql import func
+
 def get_qldt(
     db: Session, student_id: int = None, 
     student_name: str = None, date_of_birth: date = None,
     course_class_code: str = None, subject_class_id: int = None,
     subject_code: str = None, subject_name: str = None,
     credit: int = None, semester_id: int = None):
-    #semester_id=db.query(models.Semester.id).filter(semester_term==models.Semester.term,semester_yearstart==models.Semester.year_start).first()
+    ordering_criteria = [
+        models.Student.id,
+        models.Student.name,
+        models.Student.date_of_birth,
+        func.concat("K", models.CourseClass.gen, "-", models.Major.code),
+        models.SubjectClass.id,
+        models.Subject.subject_code,
+        models.Subject.subject_name,
+        models.Subject.credit,
+    ]
+
+    grouping_criteria = [c for c in ordering_criteria if c is not None]
+
     query = (
-        db.query(models.Student.id, models.Student.name, models.Student.date_of_birth,
-                func.concat("K",models.CourseClass.gen, "-", models.Major.code).label('course_class_name'),
-                 models.Subject.subject_code, models.Subject.subject_name,
-                 models.Subject.credit)
+        db.query(
+            models.Student.id, models.Student.name, models.Student.date_of_birth,
+            func.concat("K", models.CourseClass.gen, "-", models.Major.code).label('course_class_name'),
+            models.Subject.subject_code, models.Subject.subject_name,
+            models.Subject.credit, models.TakeClass.gpa
+        )
         .join(models.TakeClass, models.Student.id == models.TakeClass.student_id)
         .join(models.SubjectClass, models.SubjectClass.id == models.TakeClass.subject_class_id)
-        .join(models.Subject, models.Subject.id == models.SubjectClass.id)
+        .join(models.Subject, models.Subject.id == models.SubjectClass.subject_id)
         .join(models.Semester, models.Semester.id == models.SubjectClass.semester_id)
         .join(models.CourseClass, models.CourseClass.id == models.Student.course_class_id)
         .join(models.Major, models.Major.id == models.CourseClass.major_id)
@@ -30,26 +47,17 @@ def get_qldt(
             models.Semester.id == semester_id if semester_id is not None else models.Semester.id.isnot(None),
             models.Student.name == student_name if student_name is not None else models.Student.name.isnot(None),
             models.Student.date_of_birth == date_of_birth if date_of_birth is not None else models.Student.date_of_birth.isnot(None),
-           # models.Student.course_class_code == course_class_code if course_class_code is not None else models.Student.course_class_code.isnot(None),
-            #func.concat("K",models.CourseClass.gen, "-", models.Major.code).label('course_class')== course_class_code if course_class_code is not None else models.Major.isnot(None),
-
             models.SubjectClass.id == subject_class_id if subject_class_id is not None else models.SubjectClass.id.isnot(None),
             models.Subject.subject_code == subject_code if subject_code is not None else models.Subject.subject_code.isnot(None),
             models.Subject.subject_name == subject_name if subject_name is not None else models.Subject.subject_name.isnot(None),
             models.Subject.credit == credit if credit is not None else models.Subject.credit.isnot(None)
-        ).order_by(
-            asc(models.Student.id),
-            asc(models.Student.name), 
-            asc(models.Student.date_of_birth),
-            asc('course_class_name'),
-            asc(models.SubjectClass.id),
-            asc(models.Subject.subject_code), 
-            asc(models.Subject.subject_name),
-            asc(models.Subject.credit) 
         )
+        .order_by(*ordering_criteria)
+        .group_by(*grouping_criteria)
     )
     result = query.all()
     return result
+
 
 def get_in4_student(db: Session, student_id: int):
     
@@ -123,7 +131,9 @@ def get_list_subject_rieng(db: Session, student_id: int):
             models.TakeClass.student_id == student_id,
             #models.TakeClass.status == "In Progress"
         )
-        .order_by(asc('semester_id'))
+        .order_by(desc(models.Semester.year_start),
+                  desc(models.Semester.term),
+                  asc(models.Subject.subject_name))
     )
     result = query.all()
     return result
@@ -149,21 +159,52 @@ def delete_student(db: Session, student_id: int):
     result = query.delete()
     db.commit()
     return result
+
 def sign_subject(db: Session, student_id: int, subject_class_id: int):
+    student = db.query(models.Student).filter(models.Student.id == student_id).first()
+    if not student:
+        return "MSSV không tồn tại"
     # Kiểm tra xem dòng đã tồn tại chưa
-    existing_takeclass = db.query(models.TakeClass).filter(models.TakeClass.student_id==student_id, models.TakeClass.subject_class_id==subject_class_id).first()
+    existing_takeclass = db.query(models.TakeClass).filter(models.TakeClass.student_id == student_id, models.TakeClass.subject_class_id == subject_class_id).first()
 
     if existing_takeclass:
         # Dòng đã tồn tại, có thể xử lý theo ý muốn của bạn, ví dụ: thông báo lỗi hoặc trả về thông tin đã tồn tại
         return "Bản ghi đã tồn tại trong CSDL"
- 
-    # Dòng chưa tồn tại, thêm mới
+
+    # Kiểm tra xem có môn nào khác đã đăng ký trong cùng thời gian không
+    subject_class = db.query(models.SubjectClass).filter(models.SubjectClass.id == subject_class_id).first()
+
+    conflicting_takeclass = db.query(models.TakeClass).join(models.SubjectClass).filter(
+        models.TakeClass.student_id == student_id,
+        models.SubjectClass.semester_id == subject_class.semester_id,
+        models.SubjectClass.week_day == subject_class.week_day,
+          or_(
+        and_(
+            models.SubjectClass.start_time <= subject_class.start_time,
+            models.SubjectClass.end_time > subject_class.start_time
+        ),
+        and_(
+            models.SubjectClass.start_time < subject_class.end_time,
+            models.SubjectClass.end_time >= subject_class.end_time
+        ),
+        and_(
+            models.SubjectClass.start_time >= subject_class.start_time,
+            models.SubjectClass.end_time <= subject_class.end_time
+        )
+    )
+    ).first()
+
+    if conflicting_takeclass:
+        # Nếu có môn khác đã đăng ký trong cùng thời gian, xử lý theo ý muốn của bạn, ví dụ: thông báo lỗi
+        return "Học sinh đã đăng ký môn học khác trong cùng thời gian"
+
+    # Dòng chưa tồn tại và không có xung đột thời gian, thêm mới
     takeclass = models.TakeClass(student_id=student_id, subject_class_id=subject_class_id, status="In Progress")
     db.add(takeclass)
 
-    
     db.commit()
     return takeclass
+
 
 def get_ctdt(db: Session):
     result=db.query( models.Subject).all()
@@ -176,11 +217,17 @@ def get_listsubject(db: Session):
             models.Subject.subject_code,
             models.Subject.credit,
             models.Subject.subject_name,
-            models.SubjectClass.id.label('subject_class_id')
+            models.SubjectClass.id.label('subject_class_id'),
+            models.SubjectClass.room,
+            models.SubjectClass.start_time,
+            models.SubjectClass.end_time,
+            models.SubjectClass.week_day,
+            models.SubjectClass.class_index
         )
         .join(models.SubjectClass, models.Subject.id == models.SubjectClass.subject_id)
         .join(models.Semester, models.Semester.id == models.SubjectClass.semester_id)
-        .filter(models.Semester.year_start == 2023)
+        .filter(models.Semester.year_start == 2023, models.Semester.term==1)
+        .order_by(models.Subject.subject_name)
         .all()
     )
     return result
