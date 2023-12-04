@@ -70,4 +70,3 @@ ALTER TABLE `subjectClass` ADD FOREIGN KEY (`semester_id`) REFERENCES `semester`
 ALTER TABLE `takeClass` ADD FOREIGN KEY (`subject_class_id`) REFERENCES `subjectClass` (`id`);
 
 ALTER TABLE `takeClass` ADD FOREIGN KEY (`student_id`) REFERENCES `student` (`id`);
-
