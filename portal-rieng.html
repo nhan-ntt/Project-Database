@@ -74,10 +74,10 @@
               <a class="dropdown-item" href="#">Courses 3</a>
             </div>
           </div> -->
-          <input id="student-id" type="text" class="form-control border-light" style="padding: 30px 25px"
+          <input id="student_id" type="text" class="form-control border-light" style="padding: 30px 25px"
             placeholder="Nhập MSSV" />
           <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary px-lg-4">Search</button>
+            <button id="Search" type="submit" class="btn btn-secondary px-lg-4">Search</button>
           </div>
           <button onclick="window.location.href='addNewStudent.html'" class="btn btn-success px-sm-1">
             Thêm mới sinh viên
@@ -101,12 +101,12 @@
                   <div class="card-body p-4">
                     <h5 class="text-center text-primary">Thông tin</h5>
                     <hr class="mt-0 mb-3">
-                    <div class="row">
+                    <div class="thongtin">
                       <div class="col-2 mb-2">
                         <h6 class="mt-2">MSSV: </h6>
                         <h6 class="mt-2">Họ tên:</h6>
-                        <h6 class="mt-2">Ngày sinh:</h6>
                         <h6 class="mt-2">Lớp:</h6>
+                        <h6 class="mt-2">Ngành:</h6>
                         <h6 class="mt-2">GPA:</h6>
                       </div>
                       <div class="col-10 mb-2">
@@ -131,16 +131,16 @@
           </div>
         </div>
         <div class="container justify-content-center align-content-center text-center my-3">
-            <button type="submit" onclick="" class="btn btn-primary px-sm-2">
+            <button onclick="window.location.href='editStudent.html'" class="btn btn-primary px-sm-2">
               Chỉnh sửa thông tin
             </button>
-            <button type="submit" onclick="" class="btn btn-danger px-sm-2">
+            <button id="Delete" type="button" class="btn btn-danger px-sm-2" onclick="confirmDeleteStudent()">
               Xoá sinh viên
             </button>
         </div>
       </div>
     </div>
-
+   
     <div class="container-fluid p-0 my-5">
       <div class="row mx-0 justify-content-center pt-5 mb-5">
         <div class="col-lg-6">
@@ -149,85 +149,23 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-10 offset-md-1 mb-3 mt-3">
-          <form class="text-center" id="sinhvienlmh-form" action="/qldt/" method="post">
-            <b>Học kỳ:</b>
-            <select class="form-select target" name="" id="SinhvienLmh_term_id">
-              <option value="">Lựa chọn học kỳ</option>
-              <option value="10">Học kỳ 1 năm học 2023-2024</option>
-              <option value="9">Học kỳ 2 năm học 2022-2023</option>
-              <option value="8">Học kỳ 2 năm học 2022-2023</option>
-              <option value="7">Học kỳ 1 năm học 2022-2023</option>
-              <option value="6">Học kỳ 2 năm học 2021-2022</option>
-              <option value="5">Học kỳ 2 năm học 2021-2022</option>
-              <option value="4">Học kỳ 1 năm học 2021-2022</option>
-              <option value="3">Học kỳ 2 năm học 2020-2021</option>
-              <option value="2">Học kỳ 2 năm học 2020-2021</option>
-              <option value="1">Học kỳ 1 năm học 2020-2021</option>
-            </select>
-          </form>
-        </div>
-      </div>
-
+      
       <div id="ket-qua" class="table-responsive">
         <table class="table table-sm table-striped table-bordered table-hover">
           <thead>
             <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Năm Học</th>
+              <th scope="col">Kì Học</th>
               <th scope="col">Mã môn học</th>
               <th scope="col">Tên môn học</th>
               <th scope="col">Số tín chỉ</th>
-              <th scope="col">Giảng viên</th>
               <th scope="col">Điểm (hệ 4)</th>
               <th scope="col">Thao tác</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>CSC101</td>
-              <td>Lập trình căn bản</td>
-              <td>3</td>
-              <td>Nguyễn Văn A</td>
-              <td>3</td>
-              <td>
-                <button type="button" class="btn btn-outline-danger btn-sm">
-                  Xoá môn học
-                </button>
-                <button type="button" class="btn btn-outline-info btn-sm">
-                  Sửa điểm
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>CSC102</td>
-              <td>Lập trình hướng đối tượng</td>
-              <td>3</td>
-              <td>Trần Thị B</td>
-              <td>3</td>
-              <td>
-                <button type="button" class="btn btn-outline-danger btn-sm">
-                  Xoá môn học
-                </button>
-                <button type="button" class="btn btn-outline-info btn-sm">
-                  Sửa điểm
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>CSC103</td>
-              <td>Cấu trúc dữ liệu và giải thuật</td>
-              <td>3</td>
-              <td>Phạm Văn C</td>
-              <td>3</td>
-              <td>
-                <button type="button" class="btn btn-outline-danger btn-sm">
-                  Xoá môn học
-                </button>
-                <button type="button" class="btn btn-outline-info btn-sm">
-                  Sửa điểm
-                </button>
-              </td>
-            </tr>
+          <tbody class="list_subject">
+          
           </tbody>
         </table>
       </div>
@@ -236,6 +174,49 @@
   </div>
 
   <!-- Main End -->
+
+  <!-- Thông báo chắc chắn muốn xoá -->
+
+  <div class="modal fade" id="confirmDeleteMonHoc" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Xác nhận xoá môn học</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn chắc chắn xoá môn học này chứ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Huỷ</button>
+          <button type="button" class="btn btn-danger" id="DeleteBtn">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="confirmDeleteStudent" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Xác nhận xoá sinh viên</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn chắc chắn muốn xoá sinh viên này chứ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Huỷ</button>
+          <button type="button" class="btn btn-danger" onclick="deleteStudent()">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
@@ -250,6 +231,7 @@
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
   <!-- Template Javascript -->
+  <script src="js/portal-rieng.js"></script>
   <script src="js/main.js"></script>
 </body>
 
