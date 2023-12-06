@@ -19,7 +19,7 @@ function start() {
         "student_id": document.getElementById("student_id"),
         "student_name": document.getElementById("student_name"),
         "date_of_birth": document.getElementById("date_of_birth"),
-        "course_class_code": document.getElementById("course_class_code"),
+       // "course_class_code": document.getElementById("course_class_code"),
         "subject_code": document.getElementById("subject_code"),
         "subject_name": document.getElementById("subject_name"),
         "credit": document.getElementById("credit"),

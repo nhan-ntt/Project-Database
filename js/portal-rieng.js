@@ -78,7 +78,7 @@ function deleteSubject(subject_class_id,callback) {
                 callback();
             }
             // Reload trang sau khi xoá sinh viên
-                  getSubject(`http://127.0.0.1:8000/portalrieng/subject?student_id=${data.student_id}`, renderSubject);
+            reload(data.student_id)
 
         });
 
@@ -86,22 +86,55 @@ function deleteSubject(subject_class_id,callback) {
 }
 
 
-function showInputField() {
-  var inputField = document.getElementById("inputField");
-  var saveButton = document.getElementById("saveButton");
+function showInputField(subject_class_id) {
+  var inputField = document.getElementById(`inputField_${subject_class_id}`);
+  var saveButton = document.getElementById(`saveButton_${subject_class_id}`);
   inputField.style.display = "inline-block";
   saveButton.style.display = "inline-block";
 }
 
-function saveGrade() {
-  var inputField = document.getElementById("inputField");
-  var grade = inputField.value;
+function saveGrade(subject_class_id,callback) {
+  var inputField = document.getElementById(`inputField_${subject_class_id}`);
+  var gpa = inputField.value;
   // Thực hiện các thao tác lưu điểm mới vào cơ sở dữ liệu hoặc xử lý theo yêu cầu của bạn
   // Ví dụ: gửi dữ liệu điểm mới qua Ajax để lưu
-  console.log("Điểm mới: " + grade);
+  console.log("Điểm mới: " + gpa);
+  console.log(subject_class_id);
+  const studentIdInput = document.getElementById("student_id");
+  const data = {
+    student_id: encodeURIComponent(studentIdInput.value),
+  }
+  const url = `http://127.0.0.1:8000/editScore?student_id=${data.student_id}&subject_class_id=${subject_class_id}&gpa=${gpa}`;
+
+  console.log(url);
+
+  
+    var options = {
+      method: "PUT",
+      headers: {
+      "Content-Type": "application/json",
+      // Có thể bạn cần bao gồm các tiêu đề bổ sung (ví dụ: xác thực)
+      },
+      body: JSON.stringify(data)
+  }
+  fetch(url, options)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function () {
+            // Gọi lại hàm callback nếu cần thiết
+            if (callback) {
+                callback();
+            }
+            reload(data.student_id)
+
+
+            // Reload trang sau khi xoá sinh viên
+                  //getSubject(`http://127.0.0.1:8000/portalrieng/subject?student_id=${data.student_id}`, renderSubject);
+
+        });
   // Sau khi lưu thành công, bạn có thể ẩn ô nhập liệu và nút "Lưu" nếu cần
-  inputField.style.display = "none";
-  saveButton.style.display = "none";
+  inputField="";
 }
 let apiUrl="http://127.0.0.1:8000/portalrieng";
 
@@ -110,20 +143,22 @@ function searchStudent() {
   SearchBtn.onclick = function () {
       const studentIdInput = document.getElementById('student_id');
       const studentId = studentIdInput.value;
-
+      reload(studentId)
       // Search student
-      getInfor(`http://127.0.0.1:8000/portalrieng?student_id=${studentId}`, function (student) {
-          renderInfor(student);
-
-          // Nếu có thông tin sinh viên, tiếp tục search subject
-          if (student && student.id) {
-              getSubject(`http://127.0.0.1:8000/portalrieng/subject?student_id=${student.id}`, renderSubject);
-          }
-      });
+     
   };
 }
 
+function reload(studentId){
+    getInfor(`http://127.0.0.1:8000/portalrieng?student_id=${studentId}`, function (student) {
+      renderInfor(student);
 
+      // Nếu có thông tin sinh viên, tiếp tục search subject
+      if (student && student.id) {
+          getSubject(`http://127.0.0.1:8000/portalrieng/subject?student_id=${student.id}`, renderSubject);
+      }
+  });
+}
 
 
 function getInfor(apiUrlParam, callback) {
@@ -156,17 +191,17 @@ function renderInfor(subject) {
       return;
   }
 
-    inforBlock.innerHTML=
-       `
-        <div class="col-2 mb-2">
-            <h6 class="mt-2">MSSV:  ${subject.id}</h6>
-            <h6 class="mt-2">Họ tên:${subject.name}</h6>
-            <h6 class="mt-2">Ngày sinh:${subject.date_of_birth}</h6>
-            <h6 class="mt-2">Lớp:${subject.course_class_name}</h6>
-            <h6 class="mt-2">Ngành:${subject.major}</h6>
-            <h6 class="mt-2">GPA:${subject.weighted_gpa !== null ? subject.weighted_gpa : 'N/A'}</h6>
-         </div>
-        `;
+  inforBlock.innerHTML=
+  `
+   <div class="col-2 mb-2">
+       <h6 class="mt-2">MSSV:  ${subject.id}</h6>
+       <h6 class="mt-2">Họ tên:${subject.name}</h6>
+       <h6 class="mt-2">Ngày sinh:${subject.date_of_birth}</h6>
+       <h6 class="mt-2">Lớp:${subject.course_class_name}</h6>
+       <h6 class="mt-2">Ngành:${subject.major}</h6>
+       <h6 class="mt-2">GPA:${subject.gpa !== null ? subject.gpa : 'N/A'}</h6>
+    </div>
+   `;
     console.log(subject);
 }
 function renderSubject(listsubject) {
@@ -174,32 +209,55 @@ function renderSubject(listsubject) {
 
   listsubjectBlock.innerHTML = "";
 
-  var htmls = listsubject.map(function (item, index) {
+  // Group subjects by semester_year and term
+  var groupedSubjects = {};
+  listsubject.forEach(function (item) {
+    var key = item.semester_yearstart + '-' + item.semester_term;
+    if (!groupedSubjects[key]) {
+      groupedSubjects[key] = [];
+    }
+    groupedSubjects[key].push(item);
+  });
+
+  // Generate HTML for each group
+  var htmls = Object.keys(groupedSubjects).map(function (key, index) {
+    var group = groupedSubjects[key];
+    var groupHtml = group.map(function (subject, innerIndex) {
+      return `
+        <tr>
+          <td>${innerIndex + 1}</td>
+          <td>${subject.subject_code}</td>
+          <td>${subject.subject_name}</td>
+          <td>${subject.credit}</td>
+          <td>${subject.gpa !== null ? subject.gpa : 'N/A'}</td>
+          <td>${subject.status !== null ? subject.status : 'InProgress'}</td>
+          <td>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDelete(${subject.subject_class_id})">
+              Xoá môn học
+            </button>
+            <button type="button" class="btn btn-outline-info btn-sm" onclick="showInputField(${subject.subject_class_id})">
+              Sửa điểm
+            </button>
+            <input class="align-items-sm-center" type="text" id="inputField_${subject.subject_class_id}" style="display: none; width: 100px;">
+            <button class="btn btn-primary btn-sm" type="button" id="saveButton_${subject.subject_class_id}" style="display: none;" onclick="saveGrade(${subject.subject_class_id})">Lưu</button>
+          </td>
+        </tr>
+      `;
+    });
+
     return `
-      <tr>
-        <td>${index + 1}</td>
-        <th>${item.semester_yearstart}</th>
-        <th>${item.semester_term}</th>
-        <td>${item.subject_code}</td>
-        <td>${item.subject_name}</td>
-        <td>${item.credit}</td>
-        <td>${item.gpa !== null ? item.gpa : 'N/A'}</td>
-        <td>
-          <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDelete(${item.subject_class_id})">
-            Xoá môn học
-          </button>
-          <button type="button" class="btn btn-outline-info btn-sm" onclick="showInputField()">
-            Sửa điểm
-          </button>
-          <input class="align-items-sm-center" type="text" id="inputField" style="display: none; width: 100px;">
-          <button class="btn btn-primary btn-sm" type="button" id="saveButton" style="display: none;" onclick="saveGrade()">Lưu</button>
-        </td>
+      <tr class="group-header">
+        <th colspan="9"><strong>Học kỳ ${group[0].semester_term} - Năm học ${group[0].semester_yearstart}</strong></th>
       </tr>
+      ${groupHtml.join('\n')}
     `;
   });
+
+
   var html = htmls.join('\n');
   listsubjectBlock.innerHTML = html;
 }
+
 
 
 function start() {

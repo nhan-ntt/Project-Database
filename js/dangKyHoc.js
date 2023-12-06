@@ -12,6 +12,8 @@ function register(event, subject_class_id, callback) {
       "Content-Type": "application/json",
       // Các tiêu đề bổ sung nếu cần (ví dụ: xác thực)
     },
+    mode: 'cors'  // Thêm dòng này
+
   };
 
   fetch(API, options)
@@ -27,10 +29,16 @@ function register(event, subject_class_id, callback) {
         // Kiểm tra xem chuỗi data có chứa thông báo "Bản ghi đã tồn tại trong CSDL" hay không
         if (data.includes("Bản ghi đã tồn tại trong CSDL")) {
           // Xử lý trường hợp bản ghi đã tồn tại
-          alert("Bản ghi đã tồn tại trong CSDL. Đăng ký thất bại!");
-        } else {
+          alert("Học sinh đã được đăng kí môn này trước đó.\nĐăng ký thất bại!");
+        }else if (data.includes("Học sinh đã đăng ký môn học khác trong cùng thời gian")) {
+          // Xử lý trường hợp bản ghi đã tồn tại
+          alert("Học sinh đã đăng ký môn học khác trong cùng thời gian.\nĐăng ký thất bại!");
+        }else if (data.includes("MSSV không tồn tại")) {
+          // Xử lý trường hợp bản ghi đã tồn tại
+          alert("Mã số sinh viên không tồn tại.\nĐăng ký thất bại!");
+        }else {
           // Đăng ký thành công
-          alert("Bạn đã đăng ký thành công!");
+          alert("Đăng ký thành công!");
           // Kiểm tra xem data có phải là mảng subject hay không
           try {
             const jsonData = JSON.parse(data);
@@ -46,18 +54,17 @@ function register(event, subject_class_id, callback) {
           // Đặt lại giá trị của ô input về rỗng
           inputField.value = "";
         }
-      } else {
-        messageElement.textContent = "Đăng ký thất bại";
-        messageElement.style.color = "red";
-      }
+      } 
     })
     .catch(function (error) {
       console.error("Lỗi trong quá trình đăng ký:", error);
       // Xử lý lỗi ở đây nếu cần
-      alert("Đăng ký thất bại!");
-      // Đặt lại giá trị của ô input về rỗng trong trường hợp lỗi
-    });      
-    inputField.value = "";
+      alert("Mã số sinh viên không tồn tại.\nĐăng ký thất bại!");
+    })
+    .finally(function () {
+      // Đặt lại giá trị của ô input về rỗng sau khi xử lý hoàn tất
+      inputField.value = "";
+    });
 
 }
 
@@ -81,6 +88,9 @@ function renderInfor(subject) {
           <td>${item.subject_name}</td>
           <td>${item.subject_code}</td>
           <td>${item.credit}</td>
+          <td>${item.week_day}</td>
+          <td>${item.start_time}-${item.end_time}</td>
+          <td>${item.room}</td>
           <td>
             <input type="text" class="form-control-sm" name="MSSV" placeholder="MSSV" required>
             <button  type="button" class="btn btn-outline-success btn-sm" onclick="register(event,${item.subject_class_id}, renderInfor)">
