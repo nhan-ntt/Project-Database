@@ -44,8 +44,8 @@
           <div class="nav-item dropdown active">
             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Portal</a>
             <div class="dropdown-menu m-0">
-              <a href="portal-rieng.html" class="dropdown-item active">Riêng</a>
-              <a href="portal-chung.html" class="dropdown-item">Chung</a>
+              <a href="portal-rieng.html" class="dropdown-item active">Thông tin sinh viên</a>
+              <a href="portal-chung.html" class="dropdown-item">Chương trình đào tạo</a>
             </div>
           </div>
           <a href="dangKyHoc.html" class="nav-item nav-link">Đăng ký học</a>
@@ -110,19 +110,11 @@
                         <h6 class="mt-2">GPA:</h6>
                       </div>
                       <div class="col-10 mb-2">
-                        <h6 class="mt-2">
-                          <?= $user_info['phone_number']?>
-                        </h6>
-                        <h6 class="mt-2">
-                          <?= $user_info['email']?>
-                        </h6>
-                        <h6 class="mt-2">
-                          <?= $user_info['address']?>
-                        </h6>
-                        <h6 class="mt-2">
-                          <?= ucfirst($user_info['status'])?>
-                        </h6>
-                      </div>
+                        <h6 class="mt-2" id="mssv"></h6>
+                        <h6 class="mt-2" id="name"></h6>
+                        <h6 class="mt-2" id="class"></h6>
+                        <h6 class="mt-2" id="major"></h6>
+                        <h6 class="mt-2" id="gpa"></h6>
                     </div>
                   </div>
                 </div>

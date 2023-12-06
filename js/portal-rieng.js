@@ -1,8 +1,9 @@
-function confirmDeleteStudent() {
+
+function confirmDeleteStudent() { // Hàm này sẽ được gọi khi bạn click vào nút "Xoá sinh viên"
   $('#confirmDeleteStudent').modal('show');
 }
 
-function deleteStudent(callback) {
+function deleteStudent(callback) { // Hàm này sẽ được gọi khi bạn click vào nút "Xác nhận xoá sinh viên"
 
   const studentIdInput = document.getElementById("student_id");
   const subjectIdInput = document.getElementById("subject_id");
@@ -86,14 +87,14 @@ function deleteSubject(subject_class_id,callback) {
 }
 
 
-function showInputField() {
+function showInputField() { // Hàm này sẽ được gọi khi bạn click vào nút "Sửa điểm"
   var inputField = document.getElementById("inputField");
   var saveButton = document.getElementById("saveButton");
   inputField.style.display = "inline-block";
   saveButton.style.display = "inline-block";
 }
 
-function saveGrade() {
+function saveGrade() { // Hàm này sẽ được gọi khi bạn click vào nút "Lưu"
   var inputField = document.getElementById("inputField");
   var grade = inputField.value;
   // Thực hiện các thao tác lưu điểm mới vào cơ sở dữ liệu hoặc xử lý theo yêu cầu của bạn
@@ -105,7 +106,7 @@ function saveGrade() {
 }
 let apiUrl="http://127.0.0.1:8000/portalrieng";
 
-function searchStudent() {
+function searchStudent() { // Hàm này sẽ được gọi khi bạn click vào nút "Tìm kiếm"
   var SearchBtn = document.getElementById('Search');
   SearchBtn.onclick = function () {
       const studentIdInput = document.getElementById('student_id');
@@ -126,7 +127,7 @@ function searchStudent() {
 
 
 
-function getInfor(apiUrlParam, callback) {
+function getInfor(apiUrlParam, callback) { // Hàm này sẽ được gọi khi bạn click vào nút "Tìm kiếm"
   fetch(apiUrlParam)
   .then(function (response) {
       return response.clone().json(); // Sao chép phản hồi và đọc nội dung
@@ -138,7 +139,7 @@ function getInfor(apiUrlParam, callback) {
 });
 }
 
-function getSubject(apiUrlParam, callback) {
+function getSubject(apiUrlParam, callback) { // Hàm này sẽ được gọi khi bạn click vào nút "Tìm kiếm"
   fetch(apiUrlParam)
   .then(function (response) {
       return response.clone().json(); // Sao chép phản hồi và đọc nội dung
@@ -149,7 +150,7 @@ function getSubject(apiUrlParam, callback) {
     alert('Sinh viên chưa đăng ký môn học nào!'); // Hiển thị thông báo mặc định
 });
 }
-function renderInfor(subject) {
+function renderInfor(subject) { // Hàm này sẽ được gọi khi bạn click vào nút "Tìm kiếm"
     var inforBlock = document.querySelector('.thongtin');
     if (subject.id == null || subject==null) {
       window.alert('Mã số sinh viên không tồn tại!');
@@ -158,7 +159,7 @@ function renderInfor(subject) {
 
     inforBlock.innerHTML=
        `
-        <div class="col-2 mb-2">
+        <div class="col-10 mb-2">
             <h6 class="mt-2">MSSV:  ${subject.id}</h6>
             <h6 class="mt-2">Họ tên:${subject.name}</h6>
             <h6 class="mt-2">Ngày sinh:${subject.date_of_birth}</h6>
@@ -169,7 +170,7 @@ function renderInfor(subject) {
         `;
     console.log(subject);
 }
-function renderSubject(listsubject) {
+function renderSubject(listsubject) { // Hàm này sẽ được gọi khi bạn click vào nút "Tìm kiếm"
   var listsubjectBlock = document.querySelector('.list_subject');
 
   listsubjectBlock.innerHTML = "";
@@ -202,7 +203,7 @@ function renderSubject(listsubject) {
 }
 
 
-function start() {
+function start() { // Hàm này sẽ được gọi khi bạn click vào nút "Tìm kiếm"
   searchStudent();
 }
 start();
