@@ -86,7 +86,7 @@ function renderInfor(subject) {
         <tr>
           <td>${index + 1}</td>
           <td>${item.subject_name}</td>
-          <td>${item.subject_code}</td>
+          <td>${item.subject_code} ${item.class_index}</td>
           <td>${item.credit}</td>
           <td>${item.week_day}</td>
           <td>${item.start_time}-${item.end_time}</td>

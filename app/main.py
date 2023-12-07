@@ -33,11 +33,11 @@ def get_subject(subject_id: int):
 def qldt(student_id: int | None = None ,student_name: str | None = None, 
          date_of_birth: date | None = None, course_class_code: str | None = None, subject_class_id: int | None = None,
          subject_code: str | None = None, subject_name: str | None = None,
-         credit: int | None = None,semester_id: int| None = None):
+         credit: int | None = None,semester_id: int| None = None,class_index: int| None = None):
     return crud.get_qldt(db, student_id, student_name,
                          date_of_birth, course_class_code,
                          subject_class_id, subject_code,
-                         subject_name, credit, semester_id)
+                         subject_name, credit, semester_id,class_index)
     
 @app.delete("/portalrieng/subject")
 def remove_subject(student_id: int, subject_class_id: int):

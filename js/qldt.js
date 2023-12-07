@@ -83,7 +83,7 @@ function renderQldt(qldt) {
         <td><input name="name" type="text" class="form-control form-control-sm" value="${item.name}"></td>
         <td><input name="dob" type="text" class="form-control form-control-sm" value="${item.date_of_birth}"></td>
         <td><input name="class" type="text" class="form-control form-control-sm" value="${item.course_class_name}"></td>
-        <td><input name="code" type="text" class="form-control form-control-sm" value="${item.subject_code}"></td>
+        <td><input name="code" type="text" class="form-control form-control-sm" value="${item.subject_code} ${item.class_index}"></td>
         <td><input name="subject" type="text" class="form-control form-control-sm" value="${item.subject_name}"></td>
         <td><input name="credit" maxlength="10" class="form-control form-control-sm" value="${item.credit}"></td>
       </tr>`;

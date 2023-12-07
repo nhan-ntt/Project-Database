@@ -1,29 +1,25 @@
-import os
-import urllib.parse
-
-from dotenv import load_dotenv
 import pandas as pd
 import mysql.connector
-# Load environment variables from .env file
+import os
+import urllib.parse
+from dotenv import load_dotenv
+
 load_dotenv()
 
-# Get database credentials from environment variables
-
 db_user = os.getenv("DB_USER")
-db_password = urllib.parse.quote_plus(os.getenv("DB_PASSWORD"))
+db_password = urllib.parse.unquote_plus(os.getenv("DB_PASSWORD"))
 db_host = os.getenv("DB_HOST")
 db_name = os.getenv("DB_NAME")
 
-decoded_password = urllib.parse.unquote_plus(db_password)
 
-
+# MySQL Connection Parameters
 mysql_config = {
-    'host': 'localhost',
-    'port': 3307,  # Your MySQL server port
-    'user': 'root',
-    'password': 'ngocanh5624',
-    'database': 'projectdb_quanlidaotao',
+    'host': db_host,
+    'user': db_user,
+    'password': db_password,
+    'database': db_name,
 }
+
 
 dfTake = pd.read_csv('app/takeclass.csv')
 dfTake.replace('', pd.NA, inplace=True)

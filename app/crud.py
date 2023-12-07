@@ -15,7 +15,7 @@ def get_qldt(
     student_name: str = None, date_of_birth: date = None,
     course_class_code: str = None, subject_class_id: int = None,
     subject_code: str = None, subject_name: str = None,
-    credit: int = None, semester_id: int = None):
+    credit: int = None, semester_id: int = None,class_index: int = None):
     ordering_criteria = [
         models.Student.id,
         models.Student.name,
@@ -25,6 +25,7 @@ def get_qldt(
         models.Subject.subject_code,
         models.Subject.subject_name,
         models.Subject.credit,
+        models.SubjectClass.class_index,
     ]
 
     grouping_criteria = [c for c in ordering_criteria if c is not None]
@@ -34,7 +35,7 @@ def get_qldt(
             models.Student.id, models.Student.name, models.Student.date_of_birth,
             func.concat("K", models.CourseClass.gen, "-", models.Major.code).label('course_class_name'),
             models.Subject.subject_code, models.Subject.subject_name,
-            models.Subject.credit, models.TakeClass.gpa
+            models.Subject.credit, models.TakeClass.gpa,models.SubjectClass.class_index,
         )
         .join(models.TakeClass, models.Student.id == models.TakeClass.student_id)
         .join(models.SubjectClass, models.SubjectClass.id == models.TakeClass.subject_class_id)
@@ -50,7 +51,8 @@ def get_qldt(
             models.SubjectClass.id == subject_class_id if subject_class_id is not None else models.SubjectClass.id.isnot(None),
             models.Subject.subject_code == subject_code if subject_code is not None else models.Subject.subject_code.isnot(None),
             models.Subject.subject_name == subject_name if subject_name is not None else models.Subject.subject_name.isnot(None),
-            models.Subject.credit == credit if credit is not None else models.Subject.credit.isnot(None)
+            models.Subject.credit == credit if credit is not None else models.Subject.credit.isnot(None),
+            models.SubjectClass.class_index == class_index if class_index is not None else models.SubjectClass.class_index.isnot(None),
         )
         .order_by(*ordering_criteria)
         .group_by(*grouping_criteria)
@@ -123,6 +125,7 @@ def get_list_subject_rieng(db: Session, student_id: int):
             models.Semester.year_start.label('semester_yearstart'),
             models.Semester.id.label('semester_id'),
             models.SubjectClass.id.label('subject_class_id'),
+            models.SubjectClass.class_index.label('subject_class_index'),
         )
         .join(models.SubjectClass, models.SubjectClass.id == models.TakeClass.subject_class_id)
         .join(models.Subject, models.Subject.id == models.SubjectClass.subject_id)

@@ -227,7 +227,7 @@ function renderSubject(listsubject) { // Hàm này sẽ được gọi khi bạn
       return `
         <tr>
           <td>${innerIndex + 1}</td>
-          <td>${subject.subject_code}</td>
+          <td>${subject.subject_code} ${subject.subject_class_index}</td>
           <td>${subject.subject_name}</td>
           <td>${subject.credit}</td>
           <td>${subject.gpa !== null ? subject.gpa : 'N/A'}</td>
