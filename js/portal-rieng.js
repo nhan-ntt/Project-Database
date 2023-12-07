@@ -194,13 +194,13 @@ function renderInfor(subject) { // Hàm này sẽ được gọi khi bạn click
 
   inforBlock.innerHTML=
   `
-   <div class="col-2 mb-2">
+   <div class="col-10 mb-2">
        <h6 class="mt-2">MSSV:  ${subject.id}</h6>
-       <h6 class="mt-2">Họ tên:${subject.name}</h6>
-       <h6 class="mt-2">Ngày sinh:${subject.date_of_birth}</h6>
-       <h6 class="mt-2">Lớp:${subject.course_class_name}</h6>
-       <h6 class="mt-2">Ngành:${subject.major}</h6>
-       <h6 class="mt-2">GPA:${subject.gpa !== null ? subject.gpa : 'N/A'}</h6>
+       <h6 class="mt-2">Họ tên: ${subject.name}</h6>
+       <h6 class="mt-2">Ngày sinh: ${subject.date_of_birth}</h6>
+       <h6 class="mt-2">Lớp: ${subject.course_class_name}</h6>
+       <h6 class="mt-2">Ngành: ${subject.major}</h6>
+       <h6 class="mt-2">GPA: ${subject.gpa !== null ? subject.gpa : 'N/A'}</h6>
     </div>
    `;
     console.log(subject);
