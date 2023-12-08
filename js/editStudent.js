@@ -27,11 +27,25 @@ function editStudent(callback){
         },
         body: JSON.stringify(data)
     }
-    fetch(urlAPI,options)
-        .then(function(response) {
+    fetch(urlAPI, options)
+    .then(function (response) {
         return response.json();
-        })
-        .then(callback);
+    })
+    .then(function (result) {
+        alert("Sửa thông tin sinh viên thành công!");
+        // Handle success here
+        if (callback) {
+            callback("Sửa thông tin sinh viên thành công!");
+        }
+    })
+    .catch(function (error) {
+        console.error("Error:", error.message);
+        alert("Sửa thông tin sinh viên thất bại!");
+        // Handle errors here
+        if (callback) {
+            callback("Sửa thông tin sinh viên thất bại!");
+        }
+    });
 }
 function start(){
 
